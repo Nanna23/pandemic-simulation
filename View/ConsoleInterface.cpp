@@ -1,0 +1,5 @@
+namespace View {
+    class ConsoleInterface {
+
+    };
+}
