@@ -1,7 +1,5 @@
-namespace Model
-{
-    enum PersonState
-    {
+namespace Model {
+    enum PersonState {
         SUSCETIBLE,
         INFECTED,
         REMOVED

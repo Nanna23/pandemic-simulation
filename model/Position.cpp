@@ -6,13 +6,11 @@ namespace Model
         int y;
 
     public:
-        Position(int x, int y)
-        {
+        Position(int x, int y) {
             this->x = x;
             this->y = y;
         }
-        int getX()
-        {
+        int getX() {
             return x;
         }
         int getY()
