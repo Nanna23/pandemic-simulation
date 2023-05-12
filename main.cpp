@@ -1,5 +1,5 @@
 // Per compilare
-// g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp Model/* View/* Controller/* -o app
+// g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp Model/*.cpp View/*.cpp Controller/*.cpp -o app
 // Per eseguire
 // ./app
 
