@@ -1,3 +1,5 @@
+#include <string>
+
 #include "../Model/Pandemic.hpp"
 #include "../Model/Population.hpp"
 namespace Controller {
@@ -17,7 +19,18 @@ class Simulation {
   }
   void advanceStage() {
     stageCount += 1;
+    //&population indica il pointer di una variabile population
+    // Population* indica il tipo di variabile che è il pointer
+    // di qualsiasi oggetto creato dalla classe Populatio
     pandemic.calculateNextStage(&population);
+  }
+  std::string getCurrentStateInfo() {
+    // voglio che mi restituisce una stringa con i valori S, I, R, t
+    std::string currentState = "At stage " + std::to_string(stageCount) +
+                               " suscetibles are " + std::to_string(population.getS()) +
+                               ", infected are " + std::to_string(population.getI()) +
+                               ", removed are " + std::to_string(population.getR());
+    return currentState;
   }
 };
 }  // namespace Controller
