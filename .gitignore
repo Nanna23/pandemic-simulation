@@ -1,6 +1,9 @@
 # Executable
 app
 
+# VScode
+.vscode
+
 # Prerequisites
 *.d
 
