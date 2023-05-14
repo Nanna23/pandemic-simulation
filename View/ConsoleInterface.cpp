@@ -24,19 +24,16 @@ class ConsoleInterface {
     int t;
     std::cout << "Insert number of stages to calculate: ";
     std::cin >> t;
-    for (int i = 0; i < t; i++)
-    {
-        simulation.advanceStage();
-        std::cout << simulation.getCurrentStateInfo() << ".\n";      
+    for (int i = 0; i < t; i++) {
+      simulation.advanceStage();
+      std::cout << simulation.getCurrentStateInfo() << ".\n";
     }
-
-    // prende input dall'utente per cambiare gli stage o chiudere il programma
-    // gestisce anche la creazione di grafici o cose così
   }
   void stop() {}
 
   // DOPO
-  // fare un costruttore vuoto e uno con i dati in input
-  // (nel caso vengano passati da linea di comando tramite il main)
+  // fare una funzione start con i dati come argomento e t
+  // (nel caso vengano passati da doctest o da
+  // linea di comando tramite il main (./app 10 2 0 0.5 0.5 6))
 };
 }  // namespace View
