@@ -1,9 +1,9 @@
 #ifndef PERSON_HPP
 #define PERSON_HPP
-#include "PersonState.hpp"
 #include "Position.hpp"
 
 namespace Model {
+enum PersonState { SUSCETIBLE, INFECTED, REMOVED };
 class Person {
   Position position;
   PersonState state;
