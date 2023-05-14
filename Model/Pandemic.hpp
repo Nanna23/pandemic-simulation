@@ -10,7 +10,7 @@ class Pandemic {
 
  public:
   Pandemic(double beta, double gamma);
-  void calculateNextStage(Population* populationPointer);
+  void calculateNextStage(Population population);
 };
 }  // namespace Model
 #endif
