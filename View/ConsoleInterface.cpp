@@ -29,11 +29,18 @@ class ConsoleInterface {
       std::cout << simulation.getCurrentStateInfo() << ".\n";
     }
   }
-  void stop() {}
+  void start(int S, int I, int R, float beta, float gamma, int t) {
+    Controller::Simulation simulation{S, I, R, beta, gamma};
+    for (int i = 0; i < t; i++) {
+      simulation.advanceStage();
+      std::cout << simulation.getCurrentStateInfo() << ".\n";
+    }
+  }
+    void stop() {}
 
-  // DOPO
-  // fare una funzione start con i dati come argomento e t
-  // (nel caso vengano passati da doctest o da
-  // linea di comando tramite il main (./app 10 2 0 0.5 0.5 6))
-};
+    // DOPO
+    // fare una funzione start con i dati come argomento e t
+    // (nel caso vengano passati da doctest o da
+    // linea di comando tramite il main (./app 10 2 0 0.5 0.5 6))
+  };
 }  // namespace View

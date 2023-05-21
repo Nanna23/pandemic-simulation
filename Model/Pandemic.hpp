@@ -1,6 +1,5 @@
 #ifndef PANDEMIC_HPP
 #define PANDEMIC_HPP
-
 #include "Population.hpp"
 
 namespace Model {
@@ -10,7 +9,7 @@ class Pandemic {
 
  public:
   Pandemic(double beta, double gamma);
-  void calculateNextStage(Population population);
+  void calculateNextStage(Population* population);
 };
 }  // namespace Model
 #endif
