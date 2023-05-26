@@ -1,17 +1,17 @@
 #include <string>
-#include "../Model/Pandemic.hpp"
-#include "../Model/Population.hpp"
+#include "../model/pandemic.hpp"
+#include "../model/population.hpp"
 
 namespace Controller {
 class Simulation {
-  Model::Population population;  // variabili puntatori a una popolazione
-  Model::Pandemic pandemic;      // variabili puntatori a una pandemia
+  model::Population population;  // variabili puntatori a una popolazione
+  model::Pandemic pandemic;      // variabili puntatori a una pandemia
   int stageCount;                // time
  public:
   // creo una popolazione e mi restituisce il puntatore (sennò posso mettere
   // dopo ):populatio(..), pandemic(..) {) this->population = new
-  // Model::Population(firstS, firstI, firstR); creo una pandemia e mi
-  // restituisce il puntatore this->pandemic = new Model::Pandemic(beta,
+  // model::Population(firstS, firstI, firstR); creo una pandemia e mi
+  // restituisce il puntatore this->pandemic = new model::Pandemic(beta,
   // gamma);
   Simulation(int firstS, int firstI, int firstR, double beta, double gamma)
       : population(firstS, firstI, firstR),

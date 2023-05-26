@@ -1,7 +1,11 @@
 #ifndef POPULATION_HPP
 #define POPULATION_HPP
-namespace Model {
+#include <vector>
+#include "person.hpp"
+
+namespace model {
 class Population {
+  std::vector<Person> people;
   int S;
   int I;
   int R;
@@ -15,5 +19,5 @@ class Population {
   int getN();
   void update(int S, int I, int R);
 };
-}  // namespace Model
+}  // namespace model
 #endif

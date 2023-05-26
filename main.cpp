@@ -1,11 +1,11 @@
 /**
  * Per compilare
  * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp
- * Model/*.cpp View/*.cpp Controller/*.cpp -o app Per eseguire
+ * model/*.cpp View/*.cpp Controller/*.cpp -o app Per eseguire
  * ./app
  */
 
-#include "View/ConsoleInterface.cpp"
+#include "View/consoleInterface.cpp"
 
 int main(int argc, char const *argv[]) {
   // array di puntatori a caratteri
@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]) {
     int t = atoi(argv[6]);
     consoleInterface.start(S, I, R, beta, gamma, t);
   } else {
-    consoleInterface.start();
+    consoleInterface.setupAndStart();
   }
   // argc contiene quante parole/numeri sono stati scritti
   // dopo ./app quando il programma è stato fatto partire

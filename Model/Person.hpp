@@ -1,8 +1,8 @@
 #ifndef PERSON_HPP
 #define PERSON_HPP
-#include "Position.hpp"
+#include "position.hpp"
 
-namespace Model {
+namespace model {
 enum PersonState { SUSCETIBLE, INFECTED, REMOVED };
 class Person {
   Position position;
@@ -13,5 +13,5 @@ class Person {
   void setPosition(Position position);
   void evolveState();
 };
-}  // namespace Model
+}  // namespace model
 #endif

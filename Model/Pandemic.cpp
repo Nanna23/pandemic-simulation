@@ -1,13 +1,13 @@
-#include "Pandemic.hpp"
+#include "pandemic.hpp"
 
 #include <iostream>
 
-#include "Population.hpp"
+#include "population.hpp"
 
-namespace Model {
-Model::Pandemic::Pandemic(double beta, double gamma)
+namespace model {
+model::Pandemic::Pandemic(double beta, double gamma)
     : beta{beta}, gamma{gamma} {}
-void Model::Pandemic::calculateNextStage(Population* populationPtr) {
+void model::Pandemic::calculateNextStage(Population* populationPtr) {
   int S = (*populationPtr).getS();
   //parentesi per precedenza del puntatore
   int I = (*populationPtr).getI();
@@ -23,6 +23,6 @@ void Model::Pandemic::calculateNextStage(Population* populationPtr) {
   // sostitusco la population a quel indirizzo con una aggiornata prendendo
   // da un altro indirizzo la population nuova
   // new model::Population mi da il pointer
-  //(*populationPointer) = *(new Model::Population(newS, newI, newR));
+  //(*populationPointer) = *(new model::Population(newS, newI, newR));
 }
-}  // namespace Model
+}  // namespace model

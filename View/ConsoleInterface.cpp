@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "../Controller/Simulation.cpp"
+#include "../Controller/simulation.cpp"
 
 namespace View {
 class ConsoleInterface {
  public:
   ConsoleInterface() {}
-  void start() {
-    int S, I, R;
+  void setupAndStart() {
+    int S, I, R, t;
     float beta, gamma;
     std::cout << "Insert initial suscetibles: ";
     std::cin >> S;
@@ -19,18 +19,13 @@ class ConsoleInterface {
     std::cin >> beta;
     std::cout << "Insert parameter gamma: ";
     std::cin >> gamma;
-    Controller::Simulation simulation{S, I, R, beta, gamma};
-    std::cout << "Simulation successfully created!\n";
-    int t;
     std::cout << "Insert number of stages to calculate: ";
     std::cin >> t;
-    for (int i = 0; i < t; i++) {
-      simulation.advanceStage();
-      std::cout << simulation.getCurrentStateInfo() << ".\n";
-    }
+    start(S, I, R, beta, gamma, t);
   }
   void start(int S, int I, int R, float beta, float gamma, int t) {
     Controller::Simulation simulation{S, I, R, beta, gamma};
+    std::cout << "Simulation successfully created!\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
       std::cout << simulation.getCurrentStateInfo() << ".\n";

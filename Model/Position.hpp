@@ -1,7 +1,7 @@
 #ifndef POSITION_HPP
 #define POSITION_HPP
 
-namespace Model {
+namespace model {
 class Position {
   int x;
   int y;
@@ -13,5 +13,5 @@ class Position {
   void setX(int x);
   void setY(int y);
 };
-}  // namespace Model
+}  // namespace model
 #endif

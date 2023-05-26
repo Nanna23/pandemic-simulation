@@ -1,8 +1,8 @@
 #ifndef PANDEMIC_HPP
 #define PANDEMIC_HPP
-#include "Population.hpp"
+#include "population.hpp"
 
-namespace Model {
+namespace model {
 class Pandemic {
   double beta;
   double gamma;
@@ -11,5 +11,5 @@ class Pandemic {
   Pandemic(double beta, double gamma);
   void calculateNextStage(Population* population);
 };
-}  // namespace Model
+}  // namespace model
 #endif

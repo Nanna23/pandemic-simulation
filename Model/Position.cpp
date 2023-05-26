@@ -1,11 +1,11 @@
-#include "Position.hpp"
+#include "position.hpp"
 
-namespace Model {
+namespace model {
 // per inizializzare i campi privati della classe (attributi) utilizzando le
 // informazioni fornite alla funzione costruttore utilizzo : x{x}, y{y}
-Model::Position::Position(int x, int y) : x{x}, y{y} {}
-int Model::Position::getX() { return x; }
-int Model::Position::getY() { return y; }
-void Model::Position::setX(int x) { this->x = x; }
-void Model::Position::setY(int y) { this->y = y; }
-}  // namespace Model
+model::Position::Position(int x, int y) : x{x}, y{y} {}
+int model::Position::getX() { return x; }
+int model::Position::getY() { return y; }
+void model::Position::setX(int x) { this->x = x; }
+void model::Position::setY(int y) { this->y = y; }
+}  // namespace model
