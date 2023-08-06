@@ -7,6 +7,7 @@ class ConsoleInterface {
  public:
   ConsoleInterface() {}
   void setupAndStart() {
+    // TODO: chiedere se si vuole leggere la configurazione da file
     int S, I, R, t;
     float beta, gamma;
     std::cout << "Insert initial suscetibles: ";
@@ -26,6 +27,8 @@ class ConsoleInterface {
   void start(int S, int I, int R, float beta, float gamma, int t) {
     Controller::Simulation simulation{S, I, R, beta, gamma};
     std::cout << "Simulation successfully created!\n";
+    // TODO: tabulare i dati in output
+    // TODO: chiedere se si vuole una rappresentazione grafica dei dati
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
       std::cout << simulation.getCurrentStateInfo() << ".\n";

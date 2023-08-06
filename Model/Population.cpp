@@ -36,7 +36,7 @@ void model::Population::update(int S, int I, int R) {
   //inserirsco il -1 perché vettore parte da zero
   // in questo modo il vettore rimane "sezionato"
   // in zone in cui la prima è S poi I poi R
-  // TODO controllare
+  // TODO: controllare
   for (int i = this->S - 1; i > this->S - difS - 1; i--)
   {
     this->people[i].evolveState();

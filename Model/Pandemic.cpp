@@ -13,6 +13,7 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
   int I = (*populationPtr).getI();
   int R = (*populationPtr).getR();
   int N = (*populationPtr).getN();
+  // TODO: fixare unità mezze
   int newS = S - beta * (S * I) / N;
   int newI = I + beta * (S * I) / N - gamma * I;
   int newR = R + gamma * I;
@@ -23,6 +24,6 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
   // sostitusco la population a quel indirizzo con una aggiornata prendendo
   // da un altro indirizzo la population nuova
   // new model::Population mi da il pointer
-  //(*populationPointer) = *(new model::Population(newS, newI, newR));
+  // (*populationPointer) = *(new model::Population(newS, newI, newR));
 }
 }  // namespace model

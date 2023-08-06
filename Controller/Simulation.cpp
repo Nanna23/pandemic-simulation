@@ -19,7 +19,7 @@ class Simulation {
         stageCount{0} {}
   void advanceStage() {
     stageCount += 1;
-    //&population indica il pointer di una variabile population
+    // &population indica il pointer di una variabile population
     // Population* indica il tipo di variabile che è il pointer
     // di qualsiasi oggetto creato dalla classe Population
     pandemic.calculateNextStage(&population);
