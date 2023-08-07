@@ -54,14 +54,14 @@ class ConsoleInterface {
 
     // TODO: se answer == Y or answer == YES allora grafico con SFML
     std::cout << SEPARATOR << "\n";
-    std::cout << "| " << std::setw(5) << "Stage count" << " | " <<
+    std::cout << "| " << "Stage count" << " | " <<
         std::setw(4) << "S" << std::setw(5) << " | " <<
         std::setw(4) << "I" << std::setw(5) << " | " <<
         std::setw(4) << "R" << std::setw(5) << " |\n";
     std::cout << SEPARATOR << "\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
-      std::cout << "| " << std::setw(7) << simulation.getStageCount() << std::setw(7) << " | " <<
+      std::cout << "| " << std::setw(6) << simulation.getStageCount() << std::setw(7) << " | " <<
         std::setw(4) << simulation.getPopulation().getS() << std::setw(5) << " | " <<
         std::setw(4) << simulation.getPopulation().getI() << std::setw(5) << " | " <<
         std::setw(4) << simulation.getPopulation().getR() << std::setw(5) << " |\n";
