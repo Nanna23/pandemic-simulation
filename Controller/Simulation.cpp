@@ -33,5 +33,11 @@ class Simulation {
         std::to_string(population.getR());
     return currentState;
   }
+  model::Population getPopulation() {
+    return this->population;
+  }
+  int getStageCount() {
+    return this->stageCount;
+  }
 };
 }  // namespace Controller
