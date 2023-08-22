@@ -3,6 +3,7 @@ app
 
 # VScode
 .vscode
+.DS_STORE
 
 # Prerequisites
 *.d
@@ -12,6 +13,7 @@ app
 *.lo
 *.o
 *.obj
+build/
 
 # Precompiled Headers
 *.gch

@@ -1,8 +1,14 @@
 /**
  * Per compilare
  * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp
- * model/*.cpp View/*.cpp Controller/*.cpp -o app Per eseguire
+ * model/*.cpp view/*.cpp controller/*.cpp -o app Per eseguire
  * ./app
+ * 
+ * per compilare con CMake:
+ * cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+ * cmake --build build
+ * per farlo partire:
+ * ./build/app
  */
 
 #include "View/consoleInterface.cpp"
