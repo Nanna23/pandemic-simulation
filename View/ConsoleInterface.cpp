@@ -52,15 +52,15 @@ class ConsoleInterface {
     std::string answer;
     std::cout << "Do you want a graphic representation of the simulation? [Y/n] ";
     std::cin >> answer;
-    int window_height{1000};
-    int window_width{800};
+    int window_height{800};
+    int window_width{1000};
     int padding{50};
-    sf::RenderWindow window(sf::VideoMode(window_height, window_width), "Simulation");
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Pandemic Simulation");
 
-    std::vector<sf::Vertex> border {
+    std::vector<sf::Vertex> axis {
       sf::Vertex(sf::Vector2f(padding, padding), sf::Color::Black),
-      sf::Vertex(sf::Vector2f(padding, window_width - padding), sf::Color::Black),
-      sf::Vertex(sf::Vector2f(window_height - padding, window_width - padding), sf::Color::Black)
+      sf::Vertex(sf::Vector2f(padding, window_height - padding), sf::Color::Black),
+      sf::Vertex(sf::Vector2f(window_width - padding, window_height - padding), sf::Color::Black)
     };
 
     std::vector<sf::Vertex> line_graph_s;
@@ -96,21 +96,39 @@ class ConsoleInterface {
         *std::max_element(r_values.begin(), r_values.end())
       };
       int max_value = *std::max_element(max_values.begin(), max_values.end());
-  
-      int xpadding = (window_width - 2 * padding) / t;
-      
+
+      // perché se ho 5 valori devo distanziare 4 volte
+      int xpadding = (window_width - 2 * padding) / (t - 1);
+
       for (int i = 0; i < t; i++)
       {
         line_graph_s.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (s_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Green);
-        line_graph_i.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (i_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Red);
-        line_graph_r.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (r_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Black);
+        line_graph_i.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (i_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color{220,140,0,255});
+        line_graph_r.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (r_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Red);
       }
     
       window.clear(sf::Color::White);
       window.draw(line_graph_s.data(), line_graph_s.size(), sf::PrimitiveType::LineStrip);
       window.draw(line_graph_i.data(), line_graph_i.size(), sf::PrimitiveType::LineStrip);
       window.draw(line_graph_r.data(), line_graph_r.size(), sf::PrimitiveType::LineStrip);
-      window.draw(border.data(), border.size(), sf::PrimitiveType::LineStrip);
+      window.draw(axis.data(), axis.size(), sf::PrimitiveType::LineStrip);
+      sf::Text xlabel;
+      sf::Text ylabel;
+      sf::Font font;
+      font.loadFromFile("arial.ttf");
+      xlabel.setString("Time");
+      xlabel.setFont(font);
+      xlabel.setCharacterSize(padding / 2);
+      xlabel.setFillColor(sf::Color::Black);
+      xlabel.setPosition(window_width / 2, window_height - padding);
+      window.draw(xlabel);
+      ylabel.setString("People");
+      ylabel.setFont(font);
+      ylabel.setCharacterSize(padding / 2);
+      ylabel.setFillColor(sf::Color::Black);
+      ylabel.setPosition(padding / 4, window_height / 2);
+      ylabel.rotate(270.f);
+      window.draw(ylabel);
       window.display();
 
       while (window.isOpen())
