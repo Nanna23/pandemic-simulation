@@ -4,7 +4,7 @@
 
 namespace model {
   // codificati come 0, 1 e 2
-enum PersonState { SUSCETIBLE, INFECTED, REMOVED };
+enum PersonState { SUSCEPTIBLE, INFECTED, REMOVED };
 class Person {
   Position position;
   PersonState state;

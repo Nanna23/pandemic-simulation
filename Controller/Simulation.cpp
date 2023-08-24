@@ -27,7 +27,7 @@ class Simulation {
   std::string getCurrentStateInfo() {
     // voglio che mi restituisce una stringa con i valori S, I, R, t
     std::string currentState =
-        "At stage " + std::to_string(stageCount) + " suscetibles are " +
+        "At stage " + std::to_string(stageCount) + " susceptibles are " +
         std::to_string(population.getS()) + ", infected are " +
         std::to_string(population.getI()) + ", removed are " +
         std::to_string(population.getR());
