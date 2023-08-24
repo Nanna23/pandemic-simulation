@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(chain VERSION 0.1.0)
 
 # abilita il supporto per i test, tra cui l'opzione BUILD_TESTING usata sotto
-# include(CTest)
+include(CTest)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -15,8 +15,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra")
 
 # abilita l'address sanitizer e l'undefined-behaviour sanitizer in debug mode
-string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
-string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
+string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined")
+string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined")
 
 # richiedi il componente graphics della libreria SFML, versione 2.5
 #   le dipendenze vengono identificate automaticamente
@@ -29,11 +29,11 @@ target_link_libraries(app PRIVATE sfml-graphics)
 
 # se il testing e' abilitato...
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione
-# if (BUILD_TESTING)
+if (BUILD_TESTING)
 
-#   # aggiungi l'eseguibile chain.t
-#   add_executable(chain.t chain.cpp hooke.cpp chain.test.cpp)
-#   # aggiungi l'eseguibile chain.t alla lista dei test
-#   add_test(NAME chain.t COMMAND chain.t)
+  # aggiungi l'eseguibile pandemic.t
+  add_executable(pandemic.t model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp test/pandemic.test.cpp)
+  # aggiungi l'eseguibile pandemic.t alla lista dei test
+  add_test(NAME pandemic.t COMMAND pandemic.t)
 
-# endif()
+endif()

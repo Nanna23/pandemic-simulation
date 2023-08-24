@@ -9,7 +9,7 @@ class Simulation {
   int stageCount;                // time
  public:
   // creo una popolazione e mi restituisce il puntatore (sennò posso mettere
-  // dopo ):populatio(..), pandemic(..) {) this->population = new
+  // dopo ):population(..), pandemic(..) {) this->population = new
   // model::Population(firstS, firstI, firstR); creo una pandemia e mi
   // restituisce il puntatore this->pandemic = new model::Pandemic(beta,
   // gamma);
