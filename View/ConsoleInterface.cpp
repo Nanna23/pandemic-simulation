@@ -18,7 +18,7 @@ class ConsoleInterface {
     FILE *file = std::fopen("simulation.conf", "r");
     if (file != NULL) {
       std::string answer;
-      std::cout << "A configuration file was found in the root directory of the program, do you want to use it? [Y/n] ";
+      std::cout << "A configuration file was found in the root directory of the program, do you want to use it? [y/n] ";
       std::cin >> answer;
       if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
         if (6 == std::fscanf(file, "%d %d %d %f %f %d", &S, &I, &R, &beta, &gamma, &t)) {
@@ -32,7 +32,7 @@ class ConsoleInterface {
       std::fclose(file);
     }
 
-    std::cout << "Insert initial suscetibles: ";
+    std::cout << "Insert initial susceptibles: ";
     std::cin >> S;
     std::cout << "Insert initial infected: ";
     std::cin >> I;
@@ -50,7 +50,7 @@ class ConsoleInterface {
     Controller::Simulation simulation{S, I, R, beta, gamma};
     std::cout << "Simulation successfully created!\n";
     std::string answer;
-    std::cout << "Do you want a graphic representation of the simulation? [Y/n] ";
+    std::cout << "Do you want a graphic representation of the simulation? [y/n] ";
     std::cin >> answer;
     int window_height{800};
     int window_width{1000};
@@ -112,6 +112,7 @@ class ConsoleInterface {
       window.draw(line_graph_i.data(), line_graph_i.size(), sf::PrimitiveType::LineStrip);
       window.draw(line_graph_r.data(), line_graph_r.size(), sf::PrimitiveType::LineStrip);
       window.draw(axis.data(), axis.size(), sf::PrimitiveType::LineStrip);
+      //assi
       sf::Text xlabel;
       sf::Text ylabel;
       sf::Font font;
@@ -129,6 +130,34 @@ class ConsoleInterface {
       ylabel.setPosition(padding / 4, window_height / 2);
       ylabel.rotate(270.f);
       window.draw(ylabel);
+      //legenda
+      sf::RectangleShape square(sf::Vector2f(155.0f,95.0f));
+      square.setFillColor(sf::Color::Transparent);
+      square.setOutlineColor(sf::Color::Black);
+      square.setOutlineThickness(1);
+      square.setPosition(800,padding);
+      window.draw(square);
+      sf::Text removedLine;
+      removedLine.setString("Removed");
+      removedLine.setFont(font);
+      removedLine.setCharacterSize(padding / 2);
+      removedLine.setFillColor(sf::Color::Red);
+      removedLine.setPosition(805,padding + 5);
+      window.draw(removedLine);
+      sf::Text susceptiblesLine;
+      susceptiblesLine.setString("Susceptibles");
+      susceptiblesLine.setFont(font);
+      susceptiblesLine.setCharacterSize(padding / 2);
+      susceptiblesLine.setFillColor(sf::Color::Green);
+      susceptiblesLine.setPosition(805,padding + 30);
+      window.draw(susceptiblesLine);
+      sf::Text infectedLine;
+      infectedLine.setString("Infected");
+      infectedLine.setFont(font);
+      infectedLine.setCharacterSize(padding / 2);
+      infectedLine.setFillColor(sf::Color{220,140,0,255});
+      infectedLine.setPosition(805,padding + 60);
+      window.draw(infectedLine);
       window.display();
 
       while (window.isOpen())
