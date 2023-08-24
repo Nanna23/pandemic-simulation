@@ -52,20 +52,6 @@ class ConsoleInterface {
     std::string answer;
     std::cout << "Do you want a graphic representation of the simulation? [y/n] ";
     std::cin >> answer;
-    int window_height{800};
-    int window_width{1000};
-    int padding{50};
-    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Pandemic Simulation");
-
-    std::vector<sf::Vertex> axis {
-      sf::Vertex(sf::Vector2f(padding, padding), sf::Color::Black),
-      sf::Vertex(sf::Vector2f(padding, window_height - padding), sf::Color::Black),
-      sf::Vertex(sf::Vector2f(window_width - padding, window_height - padding), sf::Color::Black)
-    };
-
-    std::vector<sf::Vertex> line_graph_s;
-    std::vector<sf::Vertex> line_graph_i;
-    std::vector<sf::Vertex> line_graph_r;
 
     std::vector<int> s_values{};
     std::vector<int> i_values{};
@@ -79,17 +65,28 @@ class ConsoleInterface {
     std::cout << SEPARATOR << "\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
-      std::cout << "| " << std::setw(6) << simulation.getStageCount() << std::setw(8) << " | " <<
-        std::setw(4) << simulation.getPopulation().getS() << std::setw(5) << " | " <<
-        std::setw(4) << simulation.getPopulation().getI() << std::setw(5) << " | " <<
-        std::setw(4) << simulation.getPopulation().getR() << std::setw(5) << " |\n";
       s_values.push_back(simulation.getPopulation().getS());
       i_values.push_back(simulation.getPopulation().getI());
       r_values.push_back(simulation.getPopulation().getR());
+      std::cout << "| " << std::setw(6) << s_values.size() << std::setw(8) << " | " <<
+        std::setw(4) << s_values.back() << std::setw(5) << " | " <<
+        std::setw(4) << i_values.back() << std::setw(5) << " | " <<
+        std::setw(4) << r_values.back() << std::setw(5) << " |\n";
       std::cout << SEPARATOR << "\n";
     }
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
+      int window_width{1000};
+      int window_height{800};
+      int padding{50};
+      sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Pandemic Simulation");
+
+      std::vector<sf::Vertex> axis {
+        sf::Vertex(sf::Vector2f(padding, padding), sf::Color::Black),
+        sf::Vertex(sf::Vector2f(padding, window_height - padding), sf::Color::Black),
+        sf::Vertex(sf::Vector2f(window_width - padding, window_height - padding), sf::Color::Black)
+      };
+      
       std::vector<int> max_values {
         *std::max_element(s_values.begin(), s_values.end()),
         *std::max_element(i_values.begin(), i_values.end()),
@@ -100,6 +97,9 @@ class ConsoleInterface {
       // perché se ho 5 valori devo distanziare 4 volte
       int xpadding = (window_width - 2 * padding) / (t - 1);
 
+      std::vector<sf::Vertex> line_graph_s;
+      std::vector<sf::Vertex> line_graph_i;
+      std::vector<sf::Vertex> line_graph_r;
       for (int i = 0; i < t; i++)
       {
         line_graph_s.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (s_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Green);
