@@ -2,7 +2,7 @@
 #include "../model/pandemic.hpp"
 #include "../model/population.hpp"
 
-namespace Controller {
+namespace controller {
 class Simulation {
   model::Population population;  // variabili puntatori a una popolazione
   model::Pandemic pandemic;      // variabili puntatori a una pandemia
