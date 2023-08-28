@@ -40,7 +40,8 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
   }
 
   double diffSum = diffS + diffI + diffR;
-  while (diffSum > 0) {
+  // per evitare bug dovuti alla somma di numeri double
+  while (diffSum > 0.1) {
     (*values[0]) += 1;
     diffSum -= 1;
     diffs.erase(diffs.begin());
