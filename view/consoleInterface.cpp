@@ -68,22 +68,21 @@ class ConsoleInterface {
               << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
               << "R" << std::setw(5) << " |\n";
     std::cout << SEPARATOR << "\n";
-    std::cout << "| " << std::setw(6) << 0 << std::setw(8)
-          << " | " << std::setw(4) << S << std::setw(5)
-          << " | " << std::setw(4) << I << std::setw(5)
-          << " | " << std::setw(4) << R << std::setw(5)
-          << " |\n";
+    std::cout << "| " << std::setw(6) << 0 << std::setw(8) << " | "
+              << std::setw(4) << S << std::setw(5) << " | " << std::setw(4) << I
+              << std::setw(5) << " | " << std::setw(4) << R << std::setw(5)
+              << " |\n";
     std::cout << SEPARATOR << "\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
       s_values.push_back(simulation.getPopulation().getS());
       i_values.push_back(simulation.getPopulation().getI());
       r_values.push_back(simulation.getPopulation().getR());
-      std::cout << "| " << std::setw(6) << simulation.getStageCount() << std::setw(8)
-                << " | " << std::setw(4) << s_values.back() << std::setw(5)
-                << " | " << std::setw(4) << i_values.back() << std::setw(5)
-                << " | " << std::setw(4) << r_values.back() << std::setw(5)
-                << " |\n";
+      std::cout << "| " << std::setw(6) << simulation.getStageCount()
+                << std::setw(8) << " | " << std::setw(4) << s_values.back()
+                << std::setw(5) << " | " << std::setw(4) << i_values.back()
+                << std::setw(5) << " | " << std::setw(4) << r_values.back()
+                << std::setw(5) << " |\n";
       std::cout << SEPARATOR << "\n";
     }
 
