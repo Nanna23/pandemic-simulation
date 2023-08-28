@@ -5,7 +5,7 @@
 #include "doctest.h"
 
 TEST_CASE("Testing the class handling a pandemic") {
-  model::Pandemic pandemic{0.5, 0.7};
+  model::Pandemic pandemic{0.5, 0.6};
   SUBCASE("Testing population with no people inside") {
     model::Population emptyPopulation{0, 0, 0};
     pandemic.calculateNextStage(&emptyPopulation);
@@ -15,11 +15,11 @@ TEST_CASE("Testing the class handling a pandemic") {
     CHECK(emptyPopulation.getN() == 0);
   }
   SUBCASE("Testing a random population") {
-    model::Population population{1200, 6, 0};
+    model::Population population{1000, 6, 0};
     pandemic.calculateNextStage(&population);
-    CHECK(population.getS() == 1197);
+    CHECK(population.getS() == 997);
     CHECK(population.getI() == 5);
     CHECK(population.getR() == 4);
-    CHECK(population.getN() == 1206);
+    CHECK(population.getN() == 1006);
   }
 }
