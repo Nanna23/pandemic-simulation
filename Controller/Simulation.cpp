@@ -40,4 +40,4 @@ class Simulation {
     return this->stageCount;
   }
 };
-}  // namespace Controller
+}  // namespace controller

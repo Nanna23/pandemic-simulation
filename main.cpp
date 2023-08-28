@@ -1,17 +1,20 @@
 /**
- * Per compilare
+ * Per compilare con g++:
  * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp
- * model/*.cpp view/*.cpp controller/*.cpp -o app Per eseguire
+ * model/*.cpp view/*.cpp controller/*.cpp -o app 
+ * Per farlo partire:
  * ./app
  * 
- * per compilare con CMake:
+ * Per compilare con CMake:
  * cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
  * cmake --build build
- * per farlo partire:
+ * Per farlo partire:
  * ./build/app
+ * Per testare:
+ * cmake --build build --target test
  */
 
-#include "View/consoleInterface.cpp"
+#include "view/consoleInterface.cpp"
 
 int main(int argc, char const *argv[]) {
   // array di puntatori a caratteri

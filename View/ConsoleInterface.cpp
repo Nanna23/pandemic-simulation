@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <cstdio>
 
-#include "../Controller/simulation.cpp"
+#include "../controller/simulation.cpp"
 
 #define SEPARATOR "------------------------------------------"
 
@@ -173,4 +173,4 @@ class ConsoleInterface {
     }
   }
 };
-}  // namespace View
+}  // namespace view
