@@ -7,7 +7,7 @@
 
 #define SEPARATOR "------------------------------------------"
 
-namespace View {
+namespace view {
 class ConsoleInterface {
  public:
   ConsoleInterface() {}
@@ -47,7 +47,7 @@ class ConsoleInterface {
     start(S, I, R, beta, gamma, t);
   }
   void start(int S, int I, int R, float beta, float gamma, int t) {
-    Controller::Simulation simulation{S, I, R, beta, gamma};
+    controller::Simulation simulation{S, I, R, beta, gamma};
     std::cout << "Simulation successfully created!\n";
     std::string answer;
     std::cout << "Do you want a graphic representation of the simulation? [y/n] ";

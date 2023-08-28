@@ -16,7 +16,7 @@
 int main(int argc, char const *argv[]) {
   // array di puntatori a caratteri
   // int arcgc mi indica quanti puntatori ho
-  View::ConsoleInterface consoleInterface{};
+  view::ConsoleInterface consoleInterface{};
   if (argc == 1 + 6) {
     int S = atoi(argv[1]);
     int I = atoi(argv[2]);
