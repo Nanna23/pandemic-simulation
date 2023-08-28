@@ -15,6 +15,10 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
   int I = (*populationPtr).getI();
   int R = (*populationPtr).getR();
   int N = (*populationPtr).getN();
+  if (N == 0) {
+    return;
+  }
+
   int newS = S - beta * (S * I) / N;
   double dS = S - beta * (S * I) / N;
   double diffS = dS - newS;
@@ -28,14 +32,14 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
   std::vector<int*> values{&newS, &newI, &newR};
   for (int i = 0; i < 3 - 1; i++) {
     for (int j = 0; j < 3 - i - 1; j++) {
-      if (diffs[j] > diffs[j + 1]) {
+      if (diffs[j] < diffs[j + 1]) {
         std::swap(diffs[j], diffs[j + 1]);
         std::swap(values[j], values[j + 1]);
       }
     }
   }
 
-  int diffSum = diffS + diffI + diffR;
+  double diffSum = diffS + diffI + diffR;
   while (diffSum > 0) {
     (*values[0]) += 1;
     diffSum -= 1;
