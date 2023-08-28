@@ -57,9 +57,9 @@ class ConsoleInterface {
         << "Do you want a graphic representation of the simulation? [y/n] ";
     std::cin >> answer;
 
-    std::vector<int> s_values{};
-    std::vector<int> i_values{};
-    std::vector<int> r_values{};
+    std::vector<int> s_values{S};
+    std::vector<int> i_values{I};
+    std::vector<int> r_values{R};
 
     std::cout << SEPARATOR << "\n";
     std::cout << "| "
@@ -67,6 +67,12 @@ class ConsoleInterface {
               << " | " << std::setw(4) << "S" << std::setw(5) << " | "
               << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
               << "R" << std::setw(5) << " |\n";
+    std::cout << SEPARATOR << "\n";
+    std::cout << "| " << std::setw(6) << 0 << std::setw(8)
+          << " | " << std::setw(4) << S << std::setw(5)
+          << " | " << std::setw(4) << I << std::setw(5)
+          << " | " << std::setw(4) << R << std::setw(5)
+          << " |\n";
     std::cout << SEPARATOR << "\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
@@ -102,8 +108,7 @@ class ConsoleInterface {
           *std::max_element(r_values.begin(), r_values.end())};
       int max_value = *std::max_element(max_values.begin(), max_values.end());
 
-      // perché se ho 5 valori devo distanziare 4 volte
-      int xpadding = (window_width - 2 * padding) / (t - 1);
+      int xpadding = (window_width - 2 * padding) / t;
 
       std::vector<sf::Vertex> line_graph_s;
       std::vector<sf::Vertex> line_graph_i;
