@@ -30,6 +30,10 @@ int model::Population::getI() { return I; }
 int model::Population::getR() { return R; }
 int model::Population::getN() { return S + I + R; }
 void model::Population::update(int S, int I, int R) {
+  if (S + I + R != this->getN()) {
+    return;
+  }
+
   // rappresenta le persone di cui devo fare l'update
   int difS = this->S - S;
   int difR = R - this->R;

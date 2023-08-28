@@ -36,4 +36,14 @@ if (BUILD_TESTING)
   # aggiungi l'eseguibile pandemic.t alla lista dei test
   add_test(NAME pandemic.t COMMAND pandemic.t)
 
+  # aggiungi l'eseguibile population.t
+  add_executable(population.t model/person.cpp model/population.cpp model/position.cpp test/population.test.cpp)
+  # aggiungi l'eseguibile population.t alla lista dei test
+  add_test(NAME population.t COMMAND population.t)
+
+  # aggiungi l'eseguibile simulation.t
+  add_executable(simulation.t controller/simulation.cpp model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp test/simulation.test.cpp)
+  # aggiungi l'eseguibile simulation.t alla lista dei test
+  add_test(NAME simulation.t COMMAND simulation.t)
+
 endif()
