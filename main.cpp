@@ -1,10 +1,10 @@
 /**
  * Per compilare con g++:
  * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp
- * model/*.cpp view/*.cpp controller/*.cpp -o app 
+ * model/*.cpp view/*.cpp controller/*.cpp -o app
  * Per farlo partire:
  * ./app
- * 
+ *
  * Per compilare con CMake:
  * cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
  * cmake --build build

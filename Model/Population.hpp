@@ -1,6 +1,7 @@
 #ifndef POPULATION_HPP
 #define POPULATION_HPP
 #include <vector>
+
 #include "person.hpp"
 
 namespace model {

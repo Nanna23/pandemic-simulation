@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <iomanip>
 #include <cstdio>
+#include <iomanip>
+#include <iostream>
 
 #include "../controller/simulation.cpp"
 
@@ -18,10 +18,13 @@ class ConsoleInterface {
     FILE *file = std::fopen("simulation.conf", "r");
     if (file != NULL) {
       std::string answer;
-      std::cout << "A configuration file was found in the root directory of the program, do you want to use it? [y/n] ";
+      std::cout << "A configuration file was found in the root directory of "
+                   "the program, do you want to use it? [y/n] ";
       std::cin >> answer;
-      if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
-        if (6 == std::fscanf(file, "%d %d %d %f %f %d", &S, &I, &R, &beta, &gamma, &t)) {
+      if (answer == "y" || answer == "yes" || answer == "Y" ||
+          answer == "Yes") {
+        if (6 == std::fscanf(file, "%d %d %d %f %f %d", &S, &I, &R, &beta,
+                             &gamma, &t)) {
           std::fclose(file);
           start(S, I, R, beta, gamma, t);
           return;
@@ -50,7 +53,8 @@ class ConsoleInterface {
     controller::Simulation simulation{S, I, R, beta, gamma};
     std::cout << "Simulation successfully created!\n";
     std::string answer;
-    std::cout << "Do you want a graphic representation of the simulation? [y/n] ";
+    std::cout
+        << "Do you want a graphic representation of the simulation? [y/n] ";
     std::cin >> answer;
 
     std::vector<int> s_values{};
@@ -58,20 +62,22 @@ class ConsoleInterface {
     std::vector<int> r_values{};
 
     std::cout << SEPARATOR << "\n";
-    std::cout << "| " << "Stage count" << " | " <<
-        std::setw(4) << "S" << std::setw(5) << " | " <<
-        std::setw(4) << "I" << std::setw(5) << " | " <<
-        std::setw(4) << "R" << std::setw(5) << " |\n";
+    std::cout << "| "
+              << "Stage count"
+              << " | " << std::setw(4) << "S" << std::setw(5) << " | "
+              << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
+              << "R" << std::setw(5) << " |\n";
     std::cout << SEPARATOR << "\n";
     for (int i = 0; i < t; i++) {
       simulation.advanceStage();
       s_values.push_back(simulation.getPopulation().getS());
       i_values.push_back(simulation.getPopulation().getI());
       r_values.push_back(simulation.getPopulation().getR());
-      std::cout << "| " << std::setw(6) << s_values.size() << std::setw(8) << " | " <<
-        std::setw(4) << s_values.back() << std::setw(5) << " | " <<
-        std::setw(4) << i_values.back() << std::setw(5) << " | " <<
-        std::setw(4) << r_values.back() << std::setw(5) << " |\n";
+      std::cout << "| " << std::setw(6) << s_values.size() << std::setw(8)
+                << " | " << std::setw(4) << s_values.back() << std::setw(5)
+                << " | " << std::setw(4) << i_values.back() << std::setw(5)
+                << " | " << std::setw(4) << r_values.back() << std::setw(5)
+                << " |\n";
       std::cout << SEPARATOR << "\n";
     }
 
@@ -79,19 +85,21 @@ class ConsoleInterface {
       int window_width{1000};
       int window_height{800};
       int padding{50};
-      sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Pandemic Simulation");
+      sf::RenderWindow window(sf::VideoMode(window_width, window_height),
+                              "Pandemic Simulation");
 
-      std::vector<sf::Vertex> axis {
-        sf::Vertex(sf::Vector2f(padding, padding), sf::Color::Black),
-        sf::Vertex(sf::Vector2f(padding, window_height - padding), sf::Color::Black),
-        sf::Vertex(sf::Vector2f(window_width - padding, window_height - padding), sf::Color::Black)
-      };
-      
-      std::vector<int> max_values {
-        *std::max_element(s_values.begin(), s_values.end()),
-        *std::max_element(i_values.begin(), i_values.end()),
-        *std::max_element(r_values.begin(), r_values.end())
-      };
+      std::vector<sf::Vertex> axis{
+          sf::Vertex(sf::Vector2f(padding, padding), sf::Color::Black),
+          sf::Vertex(sf::Vector2f(padding, window_height - padding),
+                     sf::Color::Black),
+          sf::Vertex(
+              sf::Vector2f(window_width - padding, window_height - padding),
+              sf::Color::Black)};
+
+      std::vector<int> max_values{
+          *std::max_element(s_values.begin(), s_values.end()),
+          *std::max_element(i_values.begin(), i_values.end()),
+          *std::max_element(r_values.begin(), r_values.end())};
       int max_value = *std::max_element(max_values.begin(), max_values.end());
 
       // perché se ho 5 valori devo distanziare 4 volte
@@ -100,19 +108,36 @@ class ConsoleInterface {
       std::vector<sf::Vertex> line_graph_s;
       std::vector<sf::Vertex> line_graph_i;
       std::vector<sf::Vertex> line_graph_r;
-      for (int i = 0; i < t; i++)
-      {
-        line_graph_s.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (s_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Green);
-        line_graph_i.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (i_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color{220,140,0,255});
-        line_graph_r.emplace_back(sf::Vector2f(padding + i * xpadding, window_height - padding - (r_values[i] * 1.f / max_value) * (window_height - 2 * padding)), sf::Color::Red);
+      for (int i = 0; i < t; i++) {
+        line_graph_s.emplace_back(
+            sf::Vector2f(padding + i * xpadding,
+                         window_height - padding -
+                             (s_values[i] * 1.f / max_value) *
+                                 (window_height - 2 * padding)),
+            sf::Color::Green);
+        line_graph_i.emplace_back(
+            sf::Vector2f(padding + i * xpadding,
+                         window_height - padding -
+                             (i_values[i] * 1.f / max_value) *
+                                 (window_height - 2 * padding)),
+            sf::Color{220, 140, 0, 255});
+        line_graph_r.emplace_back(
+            sf::Vector2f(padding + i * xpadding,
+                         window_height - padding -
+                             (r_values[i] * 1.f / max_value) *
+                                 (window_height - 2 * padding)),
+            sf::Color::Red);
       }
-    
+
       window.clear(sf::Color::White);
-      window.draw(line_graph_s.data(), line_graph_s.size(), sf::PrimitiveType::LineStrip);
-      window.draw(line_graph_i.data(), line_graph_i.size(), sf::PrimitiveType::LineStrip);
-      window.draw(line_graph_r.data(), line_graph_r.size(), sf::PrimitiveType::LineStrip);
+      window.draw(line_graph_s.data(), line_graph_s.size(),
+                  sf::PrimitiveType::LineStrip);
+      window.draw(line_graph_i.data(), line_graph_i.size(),
+                  sf::PrimitiveType::LineStrip);
+      window.draw(line_graph_r.data(), line_graph_r.size(),
+                  sf::PrimitiveType::LineStrip);
       window.draw(axis.data(), axis.size(), sf::PrimitiveType::LineStrip);
-      //assi
+      // assi
       sf::Text xlabel;
       sf::Text ylabel;
       sf::Font font;
@@ -130,42 +155,40 @@ class ConsoleInterface {
       ylabel.setPosition(padding / 4, window_height / 2);
       ylabel.rotate(270.f);
       window.draw(ylabel);
-      //legenda
-      sf::RectangleShape square(sf::Vector2f(155.0f,95.0f));
+      // legenda
+      sf::RectangleShape square(sf::Vector2f(155.0f, 95.0f));
       square.setFillColor(sf::Color::Transparent);
       square.setOutlineColor(sf::Color::Black);
       square.setOutlineThickness(1);
-      square.setPosition(800,padding);
+      square.setPosition(800, padding);
       window.draw(square);
       sf::Text removedLine;
       removedLine.setString("Removed");
       removedLine.setFont(font);
       removedLine.setCharacterSize(padding / 2);
       removedLine.setFillColor(sf::Color::Red);
-      removedLine.setPosition(805,padding + 5);
+      removedLine.setPosition(805, padding + 5);
       window.draw(removedLine);
       sf::Text susceptiblesLine;
       susceptiblesLine.setString("Susceptibles");
       susceptiblesLine.setFont(font);
       susceptiblesLine.setCharacterSize(padding / 2);
       susceptiblesLine.setFillColor(sf::Color::Green);
-      susceptiblesLine.setPosition(805,padding + 30);
+      susceptiblesLine.setPosition(805, padding + 30);
       window.draw(susceptiblesLine);
       sf::Text infectedLine;
       infectedLine.setString("Infected");
       infectedLine.setFont(font);
       infectedLine.setCharacterSize(padding / 2);
-      infectedLine.setFillColor(sf::Color{220,140,0,255});
-      infectedLine.setPosition(805,padding + 60);
+      infectedLine.setFillColor(sf::Color{220, 140, 0, 255});
+      infectedLine.setPosition(805, padding + 60);
       window.draw(infectedLine);
       window.display();
 
-      while (window.isOpen())
-      {
+      while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-          if(event.type == sf::Event::Closed) {
+        while (window.pollEvent(event)) {
+          if (event.type == sf::Event::Closed) {
             window.close();
           }
         }

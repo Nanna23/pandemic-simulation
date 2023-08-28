@@ -1,4 +1,5 @@
 #include <string>
+
 #include "../model/pandemic.hpp"
 #include "../model/population.hpp"
 
@@ -33,11 +34,7 @@ class Simulation {
         std::to_string(population.getR());
     return currentState;
   }
-  model::Population getPopulation() {
-    return this->population;
-  }
-  int getStageCount() {
-    return this->stageCount;
-  }
+  model::Population getPopulation() { return this->population; }
+  int getStageCount() { return this->stageCount; }
 };
 }  // namespace controller

@@ -15,7 +15,5 @@ void model::Person::evolveState() {
     state = REMOVED;
   }
 }
-PersonState model::Person::getState() {
-  return this->state;
-}
+PersonState model::Person::getState() { return this->state; }
 }  // namespace model
