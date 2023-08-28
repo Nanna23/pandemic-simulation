@@ -57,9 +57,9 @@ class ConsoleInterface {
         << "Do you want a graphic representation of the simulation? [y/n] ";
     std::cin >> answer;
 
-    std::vector<int> s_values{S};
-    std::vector<int> i_values{I};
-    std::vector<int> r_values{R};
+    std::vector<int> s_values{};
+    std::vector<int> i_values{};
+    std::vector<int> r_values{};
 
     std::cout << SEPARATOR << "\n";
     std::cout << "| "
@@ -68,13 +68,7 @@ class ConsoleInterface {
               << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
               << "R" << std::setw(5) << " |\n";
     std::cout << SEPARATOR << "\n";
-    std::cout << "| " << std::setw(6) << 0 << std::setw(8) << " | "
-              << std::setw(4) << S << std::setw(5) << " | " << std::setw(4) << I
-              << std::setw(5) << " | " << std::setw(4) << R << std::setw(5)
-              << " |\n";
-    std::cout << SEPARATOR << "\n";
-    for (int i = 0; i < t; i++) {
-      simulation.advanceStage();
+    while (true) {
       s_values.push_back(simulation.getPopulation().getS());
       i_values.push_back(simulation.getPopulation().getI());
       r_values.push_back(simulation.getPopulation().getR());
@@ -84,6 +78,12 @@ class ConsoleInterface {
                 << std::setw(5) << " | " << std::setw(4) << r_values.back()
                 << std::setw(5) << " |\n";
       std::cout << SEPARATOR << "\n";
+      // per evitare di sforare di uno stage count ma leggere comunque i valori
+      if (simulation.getStageCount() == t) {
+        break;
+      } else {
+        simulation.advanceStage();
+      }
     }
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
@@ -112,7 +112,7 @@ class ConsoleInterface {
       std::vector<sf::Vertex> line_graph_s;
       std::vector<sf::Vertex> line_graph_i;
       std::vector<sf::Vertex> line_graph_r;
-      for (int i = 0; i < t; i++) {
+      for (int i = 0; i <= t; i++) {
         line_graph_s.emplace_back(
             sf::Vector2f(padding + i * xpadding,
                          window_height - padding -
