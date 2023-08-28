@@ -73,7 +73,7 @@ class ConsoleInterface {
       s_values.push_back(simulation.getPopulation().getS());
       i_values.push_back(simulation.getPopulation().getI());
       r_values.push_back(simulation.getPopulation().getR());
-      std::cout << "| " << std::setw(6) << s_values.size() << std::setw(8)
+      std::cout << "| " << std::setw(6) << simulation.getStageCount() << std::setw(8)
                 << " | " << std::setw(4) << s_values.back() << std::setw(5)
                 << " | " << std::setw(4) << i_values.back() << std::setw(5)
                 << " | " << std::setw(4) << r_values.back() << std::setw(5)
