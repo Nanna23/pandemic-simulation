@@ -1,33 +1,10 @@
 <!-- omit in toc -->
 # pandemic-simulation
-
-- [Descrizione del problema](#descrizione-del-problema)
-- [Il modello SIR](#il-modello-sir)
-- [Parte I: implementazione del modello SIR](#parte-i-implementazione-del-modello-sir)
-- [Parte II: simulazione tramite automa cellulare](#parte-ii-simulazione-tramite-automa-cellulare)
-- [Variazioni sul tema](#variazioni-sul-tema)
-  
-## Descrizione del problema
-
-Il progetto consiste nella progettazione e nell'implementazione di una
-simulazione della diffusione di un'epidemia in una popolozione. Esiste un
-semplice modello teorico per descrivere la diffusione di un'epidemia all'interno
-di una popolazione chiusa. Il modello è detto SIR dalle iniziali di
-
-- *Suscettibili*: le persone che si possono infettare
-- *Infetti*: le persone infette e che possono infettare
-- *Rimossi*: le persone guarite, decedute o in isolamento, che non possono più
-  né infettarsi né infettare
-
-Lo stato di una persona può andare in una direzione sola, prima da *S* a *I* e
-poi da *I* a *R*.
-
-Il modello esposto è per forza di cose semplificato, ma aiuta a cogliere
-l'andamento reale di un'epidemia.
-
+## Introduzione
+Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato nell'ambiente di programmazione C++.
 ## Il modello SIR
-
-Il modello si basa su tre equazioni differenziali
+Il modello SIR è un modello matematico utilizzato per studiare lo sviluppo di una pandemia. Questo considera la popolazione come divisa in tre parti: coloro che possono essere infetti dalla malattia, ovvero i suscettibili, gli infetti e i rimossi, ovvero coloro che non possono contrarre nuovamente la malattia. In aggiunta di questi, il modello SIR tiene in considerazione due paramentri $\beta$ e $\gamma$, da 0 a 1, che indicano rispettivamente la probabilità di contagio e di guarigione.
+Le leggi matematiche sulla quale si basa il modello SIR sono le seguenti:
 
 $$\begin{align*}
 \frac{dS}{dt} &= -\beta \frac{S}{N} I\\
@@ -35,29 +12,8 @@ $$\begin{align*}
 \frac{dR}{dt} &= \gamma I
 \end{align*}$$
 
-da cui si ricava che $S + I + R = N$, con $N$ costante, il numero
-totale di persone nella popolazione.
-
-Il modello ha due parametri:
-
-- $\beta \in [0,1]$ è una misura della probabilità di contagio in seguito a
-  contatti tra infetti e suscettibili
-- $\gamma \in [0,1]$ è la probabilità di guarigione (o morte) di un infetto ed è
-  l'inverso del tempo medio di risoluzione dell'infezione
-
-I parametri $\beta$ e $\gamma$ nel modello sono costanti, ma nella realtà sono
-tipicamente variabili e dipendono ad esempio dalle misure di mitigazione messe
-in atto.
-
-Notate come $dI/dt > 0$, cioè l'epidemia è in espansione, se
-$\beta S/N > \gamma$, cioè se $S/N > \gamma / \beta$; l'epidemia è in contrazione nel caso
-opposto. In altre parole, quando il numero di suscettibili rispetto al totale
-della popolazione supera la soglia $\gamma / \beta$ il numero di infetti
-comincerà a calare. In particolare, al tempo $t=0$, quando $S \approx N$,
-l'epidemia partirà se $R_0 = \beta / \gamma > 1$
-
-Discretizzando le equazioni differenziali citate sopra e considerando
-$\Delta T = 1$, abbiamo
+## Implementazione del modello SIR
+Svolgendo le equazioni differenziali sopra descritte per $\Delta T = 1$ si hanno le seguenti equazioni utilizzate nel progetto:
 
 $$\begin{align*}
 S_i &= S_{i-1} - \beta \frac{S_{i-1}}{N} I_{i-1}\\
@@ -65,66 +21,39 @@ I_i &= I_{i-1} + \beta \frac{S_{i-1}}{N} I_{i-1} - \gamma I_{i-1}\\
 R_i &= R_{i-1} + \gamma I_{i-1}
 \end{align*}$$
 
-Ad ogni iterazione devono valere i vincoli
+I paramentri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma vengono considerati costanti.
+Nel progetto come utità di tempo vengo utilizzati gli stadi (stages) della simuazione, in cui 1 stadio corrisponde a $\Delta T = 1$.
+Essendo i risultati delle equazioni numeri decimali, mentre il numero di persone deve essere un intero, si è riscontrato il problema che arrotondando i valori ottenuti la popolazione con il passare del tempo diminuiva di grandezza. Per riscontrare questo problema, a ogni stadio le persone "mancanti" vengono aggiunte al valore più meritevole, ovvero il valore con un decimale più alto. Nel caso in cui ci fosse parità nei valori decimali, il valore in più viene assegnato in maniera casuale.
+## Istruzioni per l'uso
+È necessario che nella cartella dalla quale viene eseguito il programma sia presente il file *arial.ttf*, contente il font usato dalla libreria SFML.
+### g++
+Per compilare:
 
-$$\begin{align*}
-S + I + R &= N\\
-S, I, R &\in \Bbb N
-\end{align*}$$
+```
+$ g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp view/consoleInterface.cpp controller/simulation.cpp main.cpp -o app -lsfml-window -lsfml-system -lsfml-graphics -O3
+```
+Per eseguire:
 
-## Parte I: implementazione del modello SIR
+```
+$ ./app
+```
+### CMake
+Per compilare:
 
-La prima parte del progetto è obbligatoria e consiste nell'implementazione del
-modello SIR descritto sopra, calcolando i valori di S, I e R al variare del
-tempo. In base ai vincoli citati sopra, questi valori devono essere dei numeri
-interi già durante la simulazione e non solo nell'output finale.
+```
+$ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release cmake --build build
+```
+Per eseguire:
 
-L'input del programma è costituito dai parametri del modello $\beta$ e $\gamma$,
-dai valori iniziali di S, I e R e dalla durata in giorni della simulazione $T$.
-I parametri vanno presi, da standard input, da file di configurazione o da riga
-di comando.
+```
+$ ./build/app
+```
 
-L'output del programma è costituito da una tabulazione dei valori di S, I e R su
-standard output. In aggiunta è possibile utilizzare SFML (o altro sistema
-grafico, purché disponibile sulla piattaforma di riferimento Ubuntu 22.04) per
-la rappresentazione grafica dell'andamento delle variabili.
+Per testate:
 
-## Parte II: simulazione tramite automa cellulare
-
-La seconda parte del progetto è facoltativa e consiste nell'implementazione
-della simulazione della pandemia tramite automa cellulare: ogni membro della
-popolazione è rappresentato come una cella su una griglia bidimensionale e può
-assumere valori diversi. La griglia può poi evolvere secondo alcune semplici
-regole di infezione e guarigione, a intervalli di tempo discreti.
-
-Ogni cella in questo caso può essere in uno degli stati S, I o R (o vuota). Come
-nel modello SIR, una cella S può diventare I e una cella I può diventare R. Il
-passaggio da S a I avviene in base a una certa probabilità $\beta$ combinata
-opportunamente (cioè nel rispetto della teoria della probabilità) con il numero
-di vicini infetti. Il passaggio da I a R avviene in base a una certa probabilità
-$\gamma$. Per la gestione dei numeri casuali usate la libreria standard
-`<random>`.
-
-Come nella [parte I](#parte-i-implementazione-del-modello-sir), l'input del
-programma è costituito almeno dalla durata in giorni della simulazione $T$ e dai
-parametri di probabilità $\beta$ e $\gamma$, nonché dalle condizioni iniziali
-della griglia. I parametri vanno presi da standard input, da file di
-configurazione o da riga di comando.
-
-L'output del programma è costituito dalla rappresentazione della griglia
-istante dopo istante, accompagnata dai valori di S, I e R. E' possibile
-utilizzare SFML (o altro sistema grafico, purché disponibile sulla piattaforma
-di riferimento Ubuntu 22.04) per la rappresentazione grafica.
-
-## Variazioni sul tema
-
-Per entrambe le parti è possibile introdurre ulteriori elementi per rendere
-più elaborato il modello. A titolo di esempio:
-
-- introdurre misure di mitigazione durante il corso dell'epidemia (quarantena,
-  vaccinazioni, lockdown, ...)
-
-- introdurre la possibilità che le persone si spostino sulla griglia
-  dell'automa cellulare
-
-- ...
+```
+$ cmake --build build --target test
+```
+## Guida utente
+Il programma quando fatto partire, chiede se si vuole utilizzare un file di configurazione nel caso in cui questo fosse presente nella cartella. In caso contrario o se non è servito utilizzarlo, il programma prosegue chiedendo all'utente i seguenti valori in input: il numero iniziale di suscettibili, infetti e rimossi; i valori dei parametri $\beta$ e $\gamma; gli stadi, di cui si vuole osservare lo sviluppo della pandemia. Una volta creata con successo la simulazione, il programma chiede se l'utente desidera una rappresentazione grafica dei valori della popolazione. Infine, in output mostrerà una tabella in cui a ogni stadio corrisponde il rispettivo valore dei suscettibili, infetti e rimossi. Nel caso in cui si vuole il grafico, questo apparirà in una finestra differente in cui saranno presenti le tre funzioni dei valori S, I e R.
+Il file di configurazione deve contenere i dati, separati da uno spazio, nel seguente ordine: suscettibili, infetti, rimossi, beta, gamma, stadi (es.```10 6 0 0.5 0.5 5```).
