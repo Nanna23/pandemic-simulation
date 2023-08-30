@@ -1,8 +1,9 @@
 /**
  * Per compilare con g++:
- * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined model/pandemic.cpp
- * model/person.cpp model/population.cpp model/position.cpp
- * view/consoleInterface.cpp controller/simulation.cpp -o app
+ * g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined main.cpp
+ * model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp
+ * view/consoleInterface.cpp controller/simulation.cpp -o app -lsfml-window
+ * -lsfml-system -lsfml-graphics
  * Per farlo partire:
  * ./app
  *
