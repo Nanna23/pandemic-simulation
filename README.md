@@ -1,12 +1,12 @@
 <!-- omit in toc -->
 # Simulazione dell'evoluzione di un'epidemia - Progetto di "Programmazione per la Fisica" di Annabel Giles
 - [Introduzione](#Introduzione)
-- [Il modello SIR](#Il_modello_SIR)
-- [Implementazione del modello SIR](#Implementazione_del_modello_SIR)
+- [Il modello SIR](#Il modello SIR)
+- [Implementazione del modello SIR](#Implementazione del modello SIR)
 - [Progettazione](#Progettazione)
 - [Test](#Test)
-- [Istruzioni per l'uso](#Istruzioni_per_l'uso)
-- [Guida utente](#Guida_utente)
+- [Istruzioni per l'uso](#Istruzioni per l'uso)
+- [Guida utente](#Guida utente)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
@@ -41,8 +41,8 @@ Il programma è stato progettato utilizzando il modello MVC (Model-View-Controll
 - Controllore (controller): è la parte che funge da intermediario tra il model e la view.
 
 Inoltre è presente il file *main.cpp* che è il punto di entrata del programma e si occupa di avviare la view.
-Ho utilizzato questo design per mantenere il codice in ordine e poter implementare facilmente nuove funzionalità espandendo le capacità del programma.
-Per lo stesso motivo la classe Population è caratterizzata da un vettore di Person. Questo è inoltre diviso in sezioni con il seguente ordine: suscettibili, infetti e rimossi. Inoltre ogni persona ha una propria posizione, che nel progetto è ridonandante ma si è fatta la scelta di tenerlo nel codice, proprio per tenere la possibilità di implementare una simulazione della pandemia tramite automa cellulare.
+Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
+Per lo stesso motivo la classe Population è caratterizzata da un vettore di Person invece che da tre semplici variabili S, I e R. Questo, assieme al fatto che la classe Person ha un attributo position, permette di implementare facilmente in futuro una simulazione della pandemia tramite automa cellulare, poichè questo non sia già stato fatto per questioni di tempo.
 
 CMake è stato utilizzato per rendere più semplice la compilazione del programma: i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico.
 ## Test
@@ -64,7 +64,6 @@ Per eseguire:
 $ ./app
 ```
 ### CMake
-rende pià facile compilare perché è piò corto, rende facile aggiungere flag e non serve riscriverle perché sta in un file lho messo perché era semplice emperché non sapevo come compilare includendo librerie sfml gpp
 Per compilare:
 
 ```
