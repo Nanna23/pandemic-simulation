@@ -1,12 +1,12 @@
 <!-- omit in toc -->
 # Simulazione dell'evoluzione di un'epidemia - Progetto di "Programmazione per la Fisica" di Annabel Giles
 - [Introduzione](#Introduzione)
-- [Il modello SIR](<#Il modello SIR>)
-- [Implementazione del modello SIR](<#Implementazione del modello SIR>)
+- [Il modello SIR](#Il modello SIR)
+- [Implementazione del modello SIR](#Implementazione del modello SIR)
 - [Progettazione](#Progettazione)
 - [Test](#Test)
-- [Istruzioni per l'uso](<#Istruzioni per l'uso>)
-- [Guida utente](<#Guida utente>)
+- [Istruzioni per l'uso](#Istruzioni per l'uso)
+- [Guida utente](#Guida utente)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
@@ -19,8 +19,7 @@ $$\begin{align*}
 \frac{dR}{dt} &= \gamma I
 \end{align*}$$
 
-Osservando le equazioni si può notare che le persone suscettibili possono solo diminuire poiché diventano infette. A loro volta gli infetti possono diventare rimossi.
-
+Osservando le equazioni si può notare che le persone suscettibili possono solo diminuire poiché diventano infette. A loro volta, le persone rimosse possono solo aumentare in quanto il loro stato è quello finale. Gli infetti sono quindi uno stato transitivo tra quello di suscettibile e quello di rimosso.
 ## Implementazione del modello SIR
 Svolgendo per $\Delta T = 1$ le equazioni differenziali sopra descritte, si hanno le equazioni utilizzate nel progetto:
 
