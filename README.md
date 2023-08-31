@@ -1,12 +1,12 @@
 <!-- omit in toc -->
 # Simulazione dell'evoluzione di un'epidemia - Progetto di "Programmazione per la Fisica" di Annabel Giles
 - [Introduzione](#Introduzione)
-- [Il modello SIR](#Il modello SIR)
-- [Implementazione del modello SIR](#Implementazione del modello SIR)
+- [Il modello SIR](#Il-modello-SIR)
+- [Implementazione del modello SIR](#Implementazione-del-modello-SIR)
 - [Progettazione](#Progettazione)
 - [Test](#Test)
-- [Istruzioni per l'uso](#Istruzioni per l'uso)
-- [Guida utente](#Guida%20utente)
+- [Istruzioni per l'uso](#Istruzioni-per-luso)
+- [Guida utente](#Guida-utente)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
@@ -79,7 +79,7 @@ Per testare:
 ```
 $ cmake --build build --target test
 ```
-## Guida%20utente
+## Guida utente
 Il programma, una volta avviato, chiede se si vuole utilizzare un file di configurazione nel caso in cui questo fosse presente nella cartella. In caso contrario o se si è scelto di non utilizzarlo, il programma prosegue chiedendo all'utente i seguenti valori in input: il numero iniziale di suscettibili, infetti e rimossi; i valori dei parametri $\beta$ e $\gamma; e il numero degli stadi di cui si vuole osservare lo sviluppo della pandemia. Una volta creata con successo la simulazione, il programma chiede se l'utente desidera una rappresentazione grafica dei valori della popolazione. Infine, in output mostrerà una tabella in cui ad ogni stadio corrisponde il rispettivo valore dei suscettibili, infetti e rimossi. Nel caso in cui si volesse il grafico, questo apparirà in una finestra differente in cui saranno presenti le tre funzioni dei valori S, I e R.
 Il file di configurazione con nome *simulation.conf* deve contenere i dati separati da uno spazio e nel seguente ordine: suscettibili, infetti, rimossi, beta, gamma, stadi (e.g. ```10 6 0 0.5 0.5 5```). Se formattato scorrettamente il programma proseguirà come se non ci fosse il file.
 In aggiunta si possono passare a linea di comando i valori necessari per la simulazione, che devono essere formattati come il file di configurazione.
