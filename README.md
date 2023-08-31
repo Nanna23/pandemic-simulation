@@ -33,9 +33,12 @@ Il programma è stato progettato utilizzando il modello MVC (Model-View-Controll
 Inoltre è presente il file *main.cpp* che è il punto di entrata del programma e si occupa di avviare la view.
 Ho utilizzato questo design per mantenere il codice in ordine e poter implementare facilmente nuove funzionalità espandendo le capacità del programma.
 Per lo stesso motivo la popolazione è costituta da persone che vanno a comporre un vettore ordinato in base allo stato della parsona (prima sezione suscettibili, poi infetti e infine rimossi). Inoltre ogni persona ha una propria posizione, che nel progetto è ridonandante ma si è fatta la scelta di tenerlo nel codice, proprio per tenere la possibilità di implementare una simulazione della pandemia tramite automa cellulare.
-Oltre a g++, CMake è stato utilizzato per la compilazione del programma.
+CMake è stato utilizzato per rendere più semplice la compilazione del programma: i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poichénon è necessario memorizzare alcun comando specifico.
 ## Test
-
+I test sono stati scritti utilizzando test unit di doctest. I test riguardano le classi che svolgono funzioni non elementari ma fondamentali per il buon funzionamento del programma, quindi queste sono:
+- la classe Population, della quale (ne) viene verificato
+- la classe Pandemic, della quale viene verificato
+- la classe Simulation, della quale viene verificato 
 
 ## Istruzioni per l'uso
 È necessario che nella cartella dalla quale viene eseguito il programma sia presente il file *arial.ttf*, contenente il font usato dalla libreria SFML.
@@ -74,6 +77,9 @@ Il programma, una volta avviato, chiede se si vuole utilizzare un file di config
 Il file di configurazione con nome *simulation.conf* deve contenere i dati separati da uno spazio e nel seguente ordine: suscettibili, infetti, rimossi, beta, gamma, stadi (es.```10 6 0 0.5 0.5 5```). Se formattato scorrettamente il programma proseguirà come se non ci fosse il file.
 In aggiunta si possono passare a linea di comando i valori necessari per la simulazione, che devono essere formattati come il file di configurazione.
 
+<p align="center">
+<img src="https://github.com/Nanna23/pandemic-simulation/blob/main/graph.png"  width="350">
+
 ```
 A configuration file was found in the root directory of the program, do you want to use it? [y/n] y
 Simulation successfully created!
@@ -94,3 +100,4 @@ Do you want a graphic representation of the simulation? [y/n] y
 |      5      |    5   |    1   |   10   |
 ------------------------------------------
 ```
+
