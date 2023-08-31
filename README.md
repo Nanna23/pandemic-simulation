@@ -21,7 +21,7 @@ I_i &= I_{i-1} + \beta \frac{S_{i-1}}{N} I_{i-1} - \gamma I_{i-1}\\
 R_i &= R_{i-1} + \gamma I_{i-1}
 \end{align*}$$
 
-I paramentri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma questi vengono considerati costanti.
+I parametri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma questi vengono considerati costanti.
 Nel progetto come unità di tempo viene utilizzato lo stadio (stage) della simulazione, in cui 1 stadio corrisponde a $\Delta T = 1$.
 Essendo i risultati delle equazioni numeri decimali, mentre il numero di persone deve essere un intero, si è riscontrato il problema che arrotondando i valori ottenuti la popolazione con il passare del tempo diminuiva di grandezza. Per risolvere questo problema, a ogni stadio le persone "mancanti" vengono aggiunte al valore più meritevole, ovvero il valore con un decimale più alto.
 ## Progettazione (da sistemare!!)
@@ -32,14 +32,14 @@ Il programma è stato progettato utilizzando il modello MVC (Model-View-Controll
 
 Inoltre è presente il file *main.cpp* che è il punto di entrata del programma e si occupa di avviare la view.
 Ho utilizzato questo design per mantenere il codice in ordine e poter implementare facilmente nuove funzionalità espandendo le capacità del programma.
-Per lo stesso motivo la popolazione è costituta da persone che vanno a comporre un vettore ordinato in base allo stato della parsona (prima sezione suscettibili, poi infetti e infine rimossi). Inoltre ogni persona ha una propria posizione, che nel progetto è ridonandante ma si è fatta la scelta di tenerlo nel codice, proprio per tenere la possibilità di implementare una simulazione della pandemia tramite automa cellulare.
+Per lo stesso motivo la classe Population è caratterizzata da un vettore di Person. Questo è inoltre diviso in sezioni con il seguente ordine: suscettibili, infetti e rimossi. Inoltre ogni persona ha una propria posizione, che nel progetto è ridonandante ma si è fatta la scelta di tenerlo nel codice, proprio per tenere la possibilità di implementare una simulazione della pandemia tramite automa cellulare.
+
 CMake è stato utilizzato per rendere più semplice la compilazione del programma: i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poichénon è necessario memorizzare alcun comando specifico.
 ## Test
-I test sono stati scritti utilizzando test unit di doctest. I test riguardano le classi che svolgono funzioni non elementari ma fondamentali per il buon funzionamento del programma, quindi queste sono:
-- la classe Population, della quale (ne) viene verificato
-- la classe Pandemic, della quale viene verificato
-- la classe Simulation, della quale viene verificato 
-
+I test sono stati scritti utilizzando il framework doctest. I test riguardano le classi che svolgono funzioni non elementari ma fondamentali per il buon funzionamento del programma, queste sono:
+- la classe Population, della quale se ne verifica il corretto aggiornamento nel caso di valori corretti e scorretti;
+- la classe Pandemic, della quale se ne verifica la corretta gestione di una popolazione vuota ed evoluzione di una popolazione allo stage seguente;
+- la classe Simulation, della quale se ne verifica il corretto conteggio degli stages.
 ## Istruzioni per l'uso
 È necessario che nella cartella dalla quale viene eseguito il programma sia presente il file *arial.ttf*, contenente il font usato dalla libreria SFML.
 ### g++
