@@ -6,7 +6,7 @@
 - [Progettazione](#Progettazione)
 - [Test](#Test)
 - [Istruzioni per l'uso](#Istruzioni per l'uso)
-- [Guida utente](#Guida utente)
+- [Guida utente](#Guida%20utente)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
