@@ -1,12 +1,12 @@
 <!-- omit in toc -->
 # Simulazione dell'evoluzione di un'epidemia - Progetto di "Programmazione per la Fisica" di Annabel Giles
 - [Introduzione](#Introduzione)
-- [Il modello SIR](#Il modello SIR)
-- [Implementazione del modello SIR](#Implementazione del modello SIR)
+- [Il modello SIR](<#Il modello SIR>)
+- [Implementazione del modello SIR](<#Implementazione del modello SIR>)
 - [Progettazione](#Progettazione)
 - [Test](#Test)
-- [Istruzioni per l'uso](#Istruzioni per l'uso)
-- [Guida utente](#Guida utente)
+- [Istruzioni per l'uso](<#Istruzioni per l'uso>)
+- [Guida utente](<#Guida utente>)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
@@ -19,8 +19,7 @@ $$\begin{align*}
 \frac{dR}{dt} &= \gamma I
 \end{align*}$$
 
-Le persone suscettibili possono solo diminuire di numero in quanto 
-!!!
+Osservando le equazioni si può notare che le persone suscettibili possono solo diminuire poiché diventano infette. A loro volta gli infetti possono diventare rimossi.
 
 ## Implementazione del modello SIR
 Svolgendo per $\Delta T = 1$ le equazioni differenziali sopra descritte, si hanno le equazioni utilizzate nel progetto:
@@ -36,7 +35,7 @@ Nel progetto come unità di tempo viene utilizzato lo stadio (stage) della simul
 Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). L'arrotondamento deve però tener conto che il numero totale di persone all'interno della popolazione deve rimanere costante, arrotondare per difetto o eccesso non sarebbe quindi corretto. La soluzione adottata consiste prima nel calcolare le unità mancanti, che possono essere al massimo 2, sommando le parti decimali dei valori S, I ed R appena calcolati. In seguito, si assegnano le unità mancanti ai gruppi (S, I o R) in ordine decrescente per parte decimale.
 ## Progettazione
 Il programma è stato progettato utilizzando il modello MVC (Model-View-Controller). Questo design divide il codice in tre parti in modo tale da tenerlo organizzato:
-- Modello (model): è la parte che gestisce i dati e contiene la logica del programma; !!
+- Modello (model): è la parte che gestisce i dati e contiene le classi che rispecchiano gli elementi facenti parte della simulazione;
 - Vista (view): si occupa della presentazione all'utente, mostrando i dati in maniera comprensibile;
 - Controllore (controller): è la parte che funge da intermediario tra il model e la view.
 
