@@ -84,9 +84,6 @@ Il programma, una volta avviato, chiede se si vuole utilizzare un file di config
 Il file di configurazione con nome *simulation.conf* deve contenere i dati separati da uno spazio e nel seguente ordine: suscettibili, infetti, rimossi, beta, gamma, stadi (e.g. ```10 6 0 0.5 0.5 5```). Se formattato scorrettamente il programma proseguirà come se non ci fosse il file.
 In aggiunta si possono passare a linea di comando i valori necessari per la simulazione, che devono essere formattati come il file di configurazione.
 
-<p align="center">
-<img src="https://github.com/Nanna23/pandemic-simulation/blob/main/graph.png"  width="350">
-
 ```
 A configuration file was found in the root directory of the program, do you want to use it? [y/n] y
 Simulation successfully created!
@@ -108,3 +105,5 @@ Do you want a graphic representation of the simulation? [y/n] y
 ------------------------------------------
 ```
 
+<p align="center">
+<img src="https://github.com/Nanna23/pandemic-simulation/blob/main/graph.png"  width="350">
