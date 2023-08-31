@@ -1,6 +1,12 @@
 <!-- omit in toc -->
 # Simulazione dell'evoluzione di un'epidemia - Progetto di "Programmazione per la Fisica" di Annabel Giles
 - [Introduzione](#Introduzione)
+- [Il modello SIR](#Il_modello_SIR)
+- [Implementazione del modello SIR](#Implementazione_del_modello_SIR)
+- [Progettazione](#Progettazione)
+- [Test](#Test)
+- [Istruzioni per l'uso](#Istruzioni_per_l'uso)
+- [Guida utente](#Guida_utente)
 ## Introduzione
 Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++.
 ## Il modello SIR
