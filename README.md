@@ -9,7 +9,7 @@
 - [Guida utente](#Guida-utente)
 - [Conclusione](#Conclusione)
 ## Introduzione
-Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++ e come libreria grafica SFML.
+Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++ e come libreria grafica SFML, è accedibile sulla piattaforma GitHub a [questo link](https://github.com/Nanna23/pandemic-simulation).
 ## Il modello SIR
 Il modello SIR è un modello matematico utilizzato per studiare lo sviluppo di una pandemia all'interno di una popolazione divisa in persone suscettibili, infette e rimosse. In aggiunta a ciò, il modello SIR tiene in considerazione due parametri, con valori compresi tra 0 e 1: $\beta$ e $\gamma$, che indicano rispettivamente la probabilità di contagio e di guarigione.
 Le leggi matematiche sulla quale si basa il modello SIR sono le seguenti:
