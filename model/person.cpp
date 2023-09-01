@@ -1,10 +1,9 @@
 #include "person.hpp"
 
 namespace model {
-// new Position(-1, -1) è un puntatore alla position (-1, -1)
-// inizializzo position
+// si inizializza position con coordinate (-1, -1) in quanto
+// ritenute non valide visto che non è presente la parte dell'automa
 model::Person::Person() : position(-1, -1), state{SUSCEPTIBLE} {}
-// per impostare la posizione di un oggetto di tipo Person (istanza)
 void model::Person::setPosition(Position position) {
   this->position = position;
 }

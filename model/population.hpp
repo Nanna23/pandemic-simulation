@@ -12,7 +12,6 @@ class Population {
   int R;
 
  public:
-  // costrutture setta i valori iniziali di S I R
   Population(int S, int I, int R);
   int getS();
   int getI();

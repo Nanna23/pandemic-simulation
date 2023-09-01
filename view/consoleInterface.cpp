@@ -141,7 +141,7 @@ class ConsoleInterface {
       window.draw(line_graph_r.data(), line_graph_r.size(),
                   sf::PrimitiveType::LineStrip);
       window.draw(axis.data(), axis.size(), sf::PrimitiveType::LineStrip);
-      // assi
+      // label con nome degli assi
       sf::Text xlabel;
       sf::Text ylabel;
       sf::Font font;
