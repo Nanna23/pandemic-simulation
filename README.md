@@ -6,7 +6,7 @@
 - [Progettazione](#Progettazione)
 - [Test](#Test)
 - [Istruzioni per l'uso](#Istruzioni-per-luso)
-    - [g++](#g++)
+    - [g++](#g)
     - [CMake](#CMake)
 - [Guida utente](#Guida-utente)
 - [Conclusione](#Conclusione)
