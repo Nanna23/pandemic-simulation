@@ -146,7 +146,7 @@ class ConsoleInterface {
       sf::Text ylabel;
       sf::Font font;
       font.loadFromFile("arial.ttf");
-      xlabel.setString("Time");
+      xlabel.setString("Time [days]");
       xlabel.setFont(font);
       xlabel.setCharacterSize(padding / 2);
       xlabel.setFillColor(sf::Color::Black);
