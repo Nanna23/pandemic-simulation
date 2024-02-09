@@ -1,4 +1,5 @@
 - Non va a 0 il numero di infetti (arrotonda male)
 - Relazione più chiara spiegando il codice strano
-- Controlli nell'input (numeri negativi)
 - Non fare dei return normali ma usare boolean per l'esito
+
+controllo numeri frazionari

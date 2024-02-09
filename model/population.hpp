@@ -13,7 +13,7 @@ class Population {
   int getI();
   int getR();
   int getN();
-  void update(int S, int I, int R);
+  bool update(int S, int I, int R);
 };
 }  // namespace model
 #endif

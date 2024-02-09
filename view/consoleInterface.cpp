@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <iostream>
+#include <stdexcept>
 
 #include "../controller/simulation.cpp"
 
@@ -50,8 +51,14 @@ class ConsoleInterface {
     start(S, I, R, beta, gamma, t);
   }
   void start(int S, int I, int R, float beta, float gamma, int t) {
-    controller::Simulation simulation{S, I, R, beta, gamma};
-    std::cout << "Simulation successfully created!\n";
+    controller::Simulation* simulation;
+    try {
+      simulation = new controller::Simulation(S, I, R, beta, gamma, t);
+    } catch (const std::invalid_argument& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
+      exit(1);
+    }
+    std::cout << "Simulation successfully created!" << std::endl;
     std::string answer;
     std::cout
         << "Do you want a graphic representation of the simulation? [y/n] ";
@@ -61,30 +68,24 @@ class ConsoleInterface {
     std::vector<int> i_values{};
     std::vector<int> r_values{};
 
-    std::cout << SEPARATOR << "\n";
+    std::cout << SEPARATOR << std::endl;
     std::cout << "| "
               << "Stage count"
               << " | " << std::setw(4) << "S" << std::setw(5) << " | "
               << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
-              << "R" << std::setw(5) << " |\n";
-    std::cout << SEPARATOR << "\n";
-    while (true) {
-      s_values.push_back(simulation.getPopulation().getS());
-      i_values.push_back(simulation.getPopulation().getI());
-      r_values.push_back(simulation.getPopulation().getR());
-      std::cout << "| " << std::setw(6) << simulation.getStageCount()
+              << "R" << std::setw(5) << " | " << std::endl;
+    std::cout << SEPARATOR << std::endl;
+    do {
+      s_values.push_back(simulation->getPopulation().getS());
+      i_values.push_back(simulation->getPopulation().getI());
+      r_values.push_back(simulation->getPopulation().getR());
+      std::cout << "| " << std::setw(6) << simulation->getStageCount()
                 << std::setw(8) << " | " << std::setw(4) << s_values.back()
                 << std::setw(5) << " | " << std::setw(4) << i_values.back()
                 << std::setw(5) << " | " << std::setw(4) << r_values.back()
-                << std::setw(5) << " |\n";
-      std::cout << SEPARATOR << "\n";
-      // per evitare di sforare di uno stage count ma leggere comunque i valori
-      if (simulation.getStageCount() == t) {
-        break;
-      } else {
-        simulation.advanceStage();
-      }
-    }
+                << std::setw(5) << " | " << std::endl;
+      std::cout << SEPARATOR << std::endl;
+    } while (simulation->advanceStage());
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
       const float window_width{1000};
