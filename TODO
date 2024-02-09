@@ -1,2 +1,2 @@
-- Non va a 0 il numero di infetti (arrotonda male)
-- Relazione più chiara spiegando il codice strano
+- Improve tests
+- Fix and improve report
