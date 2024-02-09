@@ -1,32 +1,29 @@
-#include "pandemic.hpp"
-
-#include <iostream>
-#include <numeric>
 #include <vector>
 
+#include "pandemic.hpp"
 #include "population.hpp"
 
 namespace model {
 model::Pandemic::Pandemic(double beta, double gamma)
     : beta{beta}, gamma{gamma} {}
 void model::Pandemic::calculateNextStage(Population* populationPtr) {
-  int S = (*populationPtr).getS();
-  int I = (*populationPtr).getI();
-  int R = (*populationPtr).getR();
-  int N = (*populationPtr).getN();
+  const int S = (*populationPtr).getS();
+  const int I = (*populationPtr).getI();
+  const int R = (*populationPtr).getR();
+  const int N = (*populationPtr).getN();
   if (N == 0) {
     return;
   }
 
   int newS = S - beta * (S * I) / N;
-  double dS = S - beta * (S * I) / N;
-  double diffS = dS - newS;
+  const double dS = S - beta * (S * I) / N;
+  const double diffS = dS - newS;
   int newI = I + beta * (S * I) / N - gamma * I;
-  double dI = I + beta * (S * I) / N - gamma * I;
-  double diffI = dI - newI;
+  const double dI = I + beta * (S * I) / N - gamma * I;
+  const double diffI = dI - newI;
   int newR = R + gamma * I;
-  double dR = R + gamma * I;
-  double diffR = dR - newR;
+  const double dR = R + gamma * I;
+  const double diffR = dR - newR;
   std::vector<double> diffs{diffS, diffI, diffR};
   std::vector<int*> values{&newS, &newI, &newR};
   for (int i = 0; i < 3 - 1; i++) {

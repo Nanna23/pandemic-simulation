@@ -4,8 +4,8 @@
 
 namespace model {
 class Pandemic {
-  double beta;
-  double gamma;
+  const double beta;
+  const double gamma;
 
  public:
   Pandemic(double beta, double gamma);

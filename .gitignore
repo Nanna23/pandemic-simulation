@@ -4,6 +4,7 @@ app
 # VScode
 .vscode
 .DS_STORE
+.cache
 
 # Prerequisites
 *.d

@@ -87,9 +87,9 @@ class ConsoleInterface {
     }
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
-      int window_width{1000};
-      int window_height{800};
-      float padding{50.f};
+      const float window_width{1000};
+      const float window_height{800};
+      const float padding{50.f};
       sf::RenderWindow window(sf::VideoMode(window_width, window_height),
                               "Pandemic Simulation");
 
@@ -105,9 +105,9 @@ class ConsoleInterface {
           *std::max_element(s_values.begin(), s_values.end()),
           *std::max_element(i_values.begin(), i_values.end()),
           *std::max_element(r_values.begin(), r_values.end())};
-      int max_value = *std::max_element(max_values.begin(), max_values.end());
+      const int max_value = *std::max_element(max_values.begin(), max_values.end());
 
-      float xpadding = (window_width - 2 * padding) * 1.f / t;
+      const float xpadding = (window_width - 2 * padding) * 1.f / t;
 
       std::vector<sf::Vertex> line_graph_s;
       std::vector<sf::Vertex> line_graph_i;

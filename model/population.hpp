@@ -1,6 +1,5 @@
 #ifndef POPULATION_HPP
 #define POPULATION_HPP
-#include <vector>
 
 namespace model {
 class Population {

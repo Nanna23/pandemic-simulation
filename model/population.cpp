@@ -1,7 +1,5 @@
 #include "population.hpp"
 
-#include <iostream>
-
 namespace model {
 // S dentro graffa è quella fornita nella creazione, quella fuori è attributo
 model::Population::Population(int S, int I, int R) : S{S}, I{I}, R{R} {}

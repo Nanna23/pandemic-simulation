@@ -19,12 +19,10 @@ class Simulation {
     pandemic.calculateNextStage(&population);
   }
   std::string getCurrentStateInfo() {
-    std::string currentState =
-        "At stage " + std::to_string(stageCount) + " susceptibles are " +
+    return "At stage " + std::to_string(stageCount) + " susceptibles are " +
         std::to_string(population.getS()) + ", infected are " +
         std::to_string(population.getI()) + ", removed are " +
         std::to_string(population.getR());
-    return currentState;
   }
   model::Population getPopulation() { return this->population; }
   int getStageCount() { return this->stageCount; }

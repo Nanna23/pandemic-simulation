@@ -3,4 +3,3 @@
 - Controlli nell'input (numeri negativi)
 - Da una funzione richiami ad un altra classe tramite pointer??
 - Non fare dei return normali ma usare boolean per l'esito
-- Usare const quando possibile
