@@ -1,4 +1,4 @@
-#include <vector>
+#include <cmath>
 #include <stdexcept>
 
 #include "pandemic.hpp"
@@ -20,34 +20,35 @@ bool model::Pandemic::calculateNextStage(Population& population) {
   const int R = population.getR();
   const int N = population.getN();
 
-  int newS = S - beta * (S * I) / N;
   const double dS = S - beta * (S * I) / N;
-  const double diffS = dS - newS;
-  int newI = I + beta * (S * I) / N - gamma * I;
+  int newS = std::round(dS);
   const double dI = I + beta * (S * I) / N - gamma * I;
-  const double diffI = dI - newI;
-  int newR = R + gamma * I;
+  int newI = std::round(dI);
   const double dR = R + gamma * I;
-  const double diffR = dR - newR;
-  std::vector<double> diffs{diffS, diffI, diffR};
-  std::vector<int*> values{&newS, &newI, &newR};
-  for (int i = 0; i < 3 - 1; i++) {
-    for (int j = 0; j < 3 - i - 1; j++) {
-      if (diffs[j] < diffs[j + 1]) {
-        std::swap(diffs[j], diffs[j + 1]);
-        std::swap(values[j], values[j + 1]);
-      }
+  int newR = std::round(dR);
+
+  // per garantire S+I+R = N
+  double roundingError = N - (newS + newI + newR);
+  if (roundingError > 0) {
+    // aggiunge l'unità in più al valore più grande
+    if (newS >= newI && newS >= newR) {
+      newS += roundingError;
+    } else if (newI >= newR) {
+      newI += roundingError;
+    } else {
+      newR += roundingError;
+    }
+  } else if (roundingError < 0) {
+    // aggiunge l'unità in più al valore più piccolo
+    if (newS <= newI && newS <= newR) {
+      newS += roundingError;
+    } else if (newI <= newR) {
+      newI += roundingError;
+    } else {
+      newR += roundingError;
     }
   }
 
-  double diffSum = diffS + diffI + diffR;
-  // per evitare bug dovuti alla somma di numeri double
-  while (diffSum > 0.1) {
-    (*values[0]) += 1;
-    diffSum -= 1;
-    diffs.erase(diffs.begin());
-    values.erase(values.begin());
-  }
   return population.update(newS, newI, newR);
 }
 }  // namespace model
