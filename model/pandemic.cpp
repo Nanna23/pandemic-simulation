@@ -6,11 +6,11 @@
 namespace model {
 model::Pandemic::Pandemic(double beta, double gamma)
     : beta{beta}, gamma{gamma} {}
-void model::Pandemic::calculateNextStage(Population* populationPtr) {
-  const int S = (*populationPtr).getS();
-  const int I = (*populationPtr).getI();
-  const int R = (*populationPtr).getR();
-  const int N = (*populationPtr).getN();
+void model::Pandemic::calculateNextStage(Population& population) {
+  const int S = population.getS();
+  const int I = population.getI();
+  const int R = population.getR();
+  const int N = population.getN();
   if (N == 0) {
     return;
   }
@@ -43,6 +43,6 @@ void model::Pandemic::calculateNextStage(Population* populationPtr) {
     diffs.erase(diffs.begin());
     values.erase(values.begin());
   }
-  (*populationPtr).update(newS, newI, newR);
+  population.update(newS, newI, newR);
 }
 }  // namespace model

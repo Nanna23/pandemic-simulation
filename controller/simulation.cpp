@@ -16,7 +16,7 @@ class Simulation {
         stageCount{0} {}
   void advanceStage() {
     stageCount += 1;
-    pandemic.calculateNextStage(&population);
+    pandemic.calculateNextStage(population);
   }
   std::string getCurrentStateInfo() {
     return "At stage " + std::to_string(stageCount) + " susceptibles are " +
