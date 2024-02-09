@@ -2,11 +2,8 @@
 #define POPULATION_HPP
 #include <vector>
 
-#include "person.hpp"
-
 namespace model {
 class Population {
-  std::vector<Person> people;
   int S;
   int I;
   int R;

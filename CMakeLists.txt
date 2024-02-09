@@ -23,7 +23,7 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined")
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)
 
 #   notare l'assenza degli header file, che pero' possono essere indicati
-add_executable(app main.cpp model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp view/consoleInterface.cpp controller/simulation.cpp)
+add_executable(app main.cpp model/pandemic.cpp model/population.cpp view/consoleInterface.cpp controller/simulation.cpp)
 # l'eseguibile dipende dalla libreria sfml-graphics e sue dipendenze
 target_link_libraries(app PRIVATE sfml-graphics)
 
@@ -32,17 +32,17 @@ target_link_libraries(app PRIVATE sfml-graphics)
 if (BUILD_TESTING)
 
   # aggiungi l'eseguibile pandemic.t
-  add_executable(pandemic.t model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp test/pandemic.test.cpp)
+  add_executable(pandemic.t model/pandemic.cpp model/population.cpp test/pandemic.test.cpp)
   # aggiungi l'eseguibile pandemic.t alla lista dei test
   add_test(NAME pandemic.t COMMAND pandemic.t)
 
   # aggiungi l'eseguibile population.t
-  add_executable(population.t model/person.cpp model/population.cpp model/position.cpp test/population.test.cpp)
+  add_executable(population.t model/population.cpp test/population.test.cpp)
   # aggiungi l'eseguibile population.t alla lista dei test
   add_test(NAME population.t COMMAND population.t)
 
   # aggiungi l'eseguibile simulation.t
-  add_executable(simulation.t controller/simulation.cpp model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp test/simulation.test.cpp)
+  add_executable(simulation.t controller/simulation.cpp model/pandemic.cpp model/population.cpp test/simulation.test.cpp)
   # aggiungi l'eseguibile simulation.t alla lista dei test
   add_test(NAME simulation.t COMMAND simulation.t)
 
