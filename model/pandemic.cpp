@@ -19,9 +19,6 @@ bool model::Pandemic::calculateNextStage(Population& population) {
   const int I = population.getI();
   const int R = population.getR();
   const int N = population.getN();
-  if (N == 0) {
-    return false;
-  }
 
   int newS = S - beta * (S * I) / N;
   const double dS = S - beta * (S * I) / N;

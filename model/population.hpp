@@ -6,6 +6,7 @@ class Population {
   int S;
   int I;
   int R;
+  int N;
 
  public:
   Population(int S, int I, int R);
