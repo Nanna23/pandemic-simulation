@@ -1,4 +1,3 @@
-#include <string>
 #include <stdexcept>
 
 #include "../model/pandemic.hpp"
@@ -28,12 +27,6 @@ class Simulation {
     }
 
     return false;
-  }
-  std::string getCurrentStateInfo() {
-    return "At stage " + std::to_string(currentStage) + " susceptibles are " +
-        std::to_string(population.getS()) + ", infected are " +
-        std::to_string(population.getI()) + ", removed are " +
-        std::to_string(population.getR());
   }
   model::Population getPopulation() { return this->population; }
   int getStageCount() { return this->currentStage; }
