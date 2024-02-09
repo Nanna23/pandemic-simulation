@@ -6,7 +6,8 @@
 
 #include "../controller/simulation.cpp"
 
-#define SEPARATOR "------------------------------------------"
+#define LINE_SEPARATOR " ------------------------------------------"
+#define SEPARATOR " | "
 
 namespace view {
 class ConsoleInterface {
@@ -30,7 +31,7 @@ class ConsoleInterface {
           start(S, I, R, beta, gamma, t);
           return;
         } else {
-          std::cout << "The configuration file is wrongly formatted!";
+          std::cout << "The configuration file is wrongly formatted!" << std::endl;
         }
       }
       std::fclose(file);
@@ -68,23 +69,23 @@ class ConsoleInterface {
     std::vector<int> i_values{};
     std::vector<int> r_values{};
 
-    std::cout << SEPARATOR << std::endl;
-    std::cout << "| "
-              << "Stage count"
-              << " | " << std::setw(4) << "S" << std::setw(5) << " | "
-              << std::setw(4) << "I" << std::setw(5) << " | " << std::setw(4)
-              << "R" << std::setw(5) << " | " << std::endl;
-    std::cout << SEPARATOR << std::endl;
+    std::cout << LINE_SEPARATOR << std::endl;
+    std::cout << SEPARATOR << "Stage count"
+              << SEPARATOR << std::setw(4) << "S" << std::setw(5)
+              << SEPARATOR << std::setw(4) << "I" << std::setw(5) 
+              << SEPARATOR << std::setw(4) << "R" << std::setw(5)
+              << SEPARATOR << std::endl;
+    std::cout << LINE_SEPARATOR << std::endl;
     do {
       s_values.push_back(simulation->getPopulation().getS());
       i_values.push_back(simulation->getPopulation().getI());
       r_values.push_back(simulation->getPopulation().getR());
-      std::cout << "| " << std::setw(6) << simulation->getStageCount()
-                << std::setw(8) << " | " << std::setw(4) << s_values.back()
-                << std::setw(5) << " | " << std::setw(4) << i_values.back()
-                << std::setw(5) << " | " << std::setw(4) << r_values.back()
-                << std::setw(5) << " | " << std::endl;
-      std::cout << SEPARATOR << std::endl;
+      std::cout << SEPARATOR << std::setw(6) << simulation->getStageCount() << std::setw(8)
+                << SEPARATOR << std::setw(4) << s_values.back() << std::setw(5)
+                << SEPARATOR << std::setw(4) << i_values.back() << std::setw(5)
+                << SEPARATOR << std::setw(4) << r_values.back() << std::setw(5)
+                << SEPARATOR << std::endl;
+      std::cout << LINE_SEPARATOR << std::endl;
     } while (simulation->advanceStage());
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
