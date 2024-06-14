@@ -25,7 +25,7 @@ bool model::Pandemic::calculateNextStage(Population& population) {
   int newR = std::round(R + gamma * I);
 
   // per garantire S+I+R = N
-  const double roundingError = N - (newS + newI + newR);
+  const int roundingError = N - (newS + newI + newR);
   if (roundingError > 0) {
     // aggiunge l'unità in più al valore più grande
     if (newS >= newI && newS >= newR) {
@@ -36,7 +36,7 @@ bool model::Pandemic::calculateNextStage(Population& population) {
       newR += roundingError;
     }
   } else if (roundingError < 0) {
-    // aggiunge l'unità in più al valore più piccolo
+    // rimuove l'unità in più al valore più piccolo
     if (newS <= newI && newS <= newR) {
       newS += roundingError;
     } else if (newI <= newR) {

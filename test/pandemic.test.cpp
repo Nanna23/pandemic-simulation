@@ -5,6 +5,12 @@
 
 TEST_CASE("Testing the class handling a pandemic") {
   model::Pandemic pandemic{0.5, 0.6};
+  SUBCASE("Testing creation of a pandemic with negative values") {
+    CHECK_THROWS_AS(new model::Pandemic(-4, -4), const std::invalid_argument&);
+  }
+  SUBCASE("Testing creation of a pandemic with values bigger than 1") {
+    CHECK_THROWS_AS(new model::Pandemic(4, 4), const std::invalid_argument&);
+  }
   SUBCASE("Testing a pandemic on a population") {
     model::Population population{1000, 6, 0};
     CHECK(pandemic.calculateNextStage(population));
