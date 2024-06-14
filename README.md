@@ -54,12 +54,12 @@ Inoltre è presente il file *main.cpp* che è il punto di entrata del programma 
 Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
 Per rendere più semplice la compilazione del programma si è scelto di usare CMake, quindi i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico ma è tutto presente al suo interno.
 
-### Population
+#### Population
 
 La classe Population è caratterizzata dalle tre variabili S, I e R. In aggiunta, ha sistemi di verifica per vedere se i valori siano accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. Contiene al suo interno funzioni (i getters) per ottenere tali valori e il numero totale della popolazione.
 Ha inoltre la funzione update, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R: nel momento in cui i valori non sono accettabili la funzione 
 
-### Pandemic
+#### Pandemic
 
 La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili.
 Pandemic ha una funzione membro chiamata calculateNextStage, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule sopra descritte.
