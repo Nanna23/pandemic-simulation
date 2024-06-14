@@ -11,7 +11,7 @@
 - [Guida utente](#Guida-utente)
 - [Conclusione](#Conclusione)
 ## Introduzione
-Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++ e come libreria grafica SFML, è accedibile sulla piattaforma GitHub a [questo link](https://github.com/Nanna23/pandemic-simulation).
+Il programma simula la propagazione di una pandemia utilizzando il modello SIR (Suscettibili, Infetti, Rimossi). L'intero progetto è stato sviluppato utilizzando come linguaggio di programmazione C++ e come libreria grafica SFML, ed è accedibile sulla piattaforma GitHub a questo [link](https://github.com/Nanna23/pandemic-simulation).
 ## Il modello SIR
 Il modello SIR è un modello matematico utilizzato per studiare lo sviluppo di una pandemia all'interno di una popolazione divisa in persone suscettibili, infette e rimosse. In aggiunta a ciò, il modello SIR tiene in considerazione due parametri, con valori compresi tra 0 e 1: $\beta$ e $\gamma$, che indicano rispettivamente la probabilità di contagio e di guarigione.
 Le leggi matematiche sulla quale si basa il modello SIR sono le seguenti:
@@ -43,8 +43,13 @@ Il programma è stato progettato utilizzando il modello MVC (Model-View-Controll
 
 Inoltre è presente il file *main.cpp* che è il punto di entrata del programma e si occupa di avviare la view.
 Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
-Per lo stesso motivo la classe Population è caratterizzata da un vettore di Person invece che da tre semplici variabili S, I e R. Questo, assieme al fatto che la classe Person ha un attributo position, permette di implementare facilmente in futuro una simulazione della pandemia tramite automa cellulare, poichè questa non sia già stato implementata per questioni di tempo.
 Per rendere più semplice la compilazione del programma si è scelto di usare CMake, quindi i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico ma è tutto presente al suo interno.
+### Population
+La classe Population è caratterizzata dalle tre variabili S, I e R. In aggiunta, ha sistemi di verifica per vedere se i valori siano accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. Contiene al suo interno funzioni (i getters) per ottenere tali valori e il numero totale della popolazione.
+Ha inoltre la funzione update di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R: nel momento in cui i valori non sono accettabili la funzione 
+### Pandemic
+La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$. Anche in questo caso viene controllato se il valore è accettabile.
+
 ## Test
 I test sono stati scritti utilizzando il framework doctest. Questi riguardano le classi che svolgono funzioni non elementari ma fondamentali per il buon funzionamento del programma:
 - la classe Population, della quale se ne verifica il corretto aggiornamento nel caso di valori corretti e scorretti;
