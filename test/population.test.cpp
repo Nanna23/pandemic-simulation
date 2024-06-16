@@ -16,7 +16,7 @@ TEST_CASE("Testing the class handling a population") {
   SUBCASE("Testing update of population with more people then the beggining") {
     CHECK_FALSE(population.update(1000, 1000, 1000));
 
-    // Checking that the update what not done with the wrong values
+    // Checking that the update was not done with the wrong values
     CHECK(population.getS() == 500);
     CHECK(population.getI() == 100);
     CHECK(population.getR() == 50);
@@ -32,7 +32,7 @@ TEST_CASE("Testing the class handling a population") {
   SUBCASE("Testing update of population with negative values") {
     CHECK_FALSE(population.update(-400, -200, -50));
     
-    // Checking that the update what not done with the wrong values
+    // Checking that the update was not done with the wrong values
     CHECK(population.getS() == 500);
     CHECK(population.getI() == 100);
     CHECK(population.getR() == 50);
