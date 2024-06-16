@@ -41,11 +41,12 @@ R_i &= R_{i-1} + \gamma I_{i-1}
 
 I parametri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma questi vengono considerati costanti.
 Nel progetto come unità di tempo viene utilizzato lo stadio (stage) della simulazione, in cui 1 stadio corrisponde a $\Delta T = 1$.
-Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). L'arrotondamento deve però tener conto che il numero totale di persone all'interno della popolazione deve rimanere costante, arrotondare per difetto o per eccesso non sarebbe quindi corretto. La soluzione adottata consiste prima nel calcolare le unità mancanti, che possono essere al massimo 2, sommando le parti decimali dei valori S, I ed R appena calcolati. In seguito, si assegnano le unità mancanti ai gruppi (S, I o R) in ordine decrescente per parte decimale.
+Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). Questo passatto viene svolto da una funzione della classe Pandemic.
 
 ## Progettazione
 
-Il programma è stato progettato utilizzando il modello MVC (Model-View-Controller). Questo design divide il codice in tre parti in modo tale da tenerlo ben organizzato:
+Il programma è stato progettato utilizzando il modello MVC (Model-View-Controller). Questo design divide il codice in tre parti:
+
 - Model (modello): è la parte che gestisce i dati e contiene le classi che rispecchiano gli elementi facenti parte della simulazione;
 - View (vista): si occupa della presentazione all'utente, mostrando i dati in maniera comprensibile;
 - Controller (controllore): è la parte che funge da intermediario tra il model e la view.
@@ -56,14 +57,30 @@ Per rendere più semplice la compilazione del programma si è scelto di usare CM
 
 #### Population
 
-La classe Population è caratterizzata dalle tre variabili S, I e R. In aggiunta, ha sistemi di verifica per vedere se i valori siano accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. Contiene al suo interno funzioni (i getters) per ottenere tali valori e il numero totale della popolazione.
-Ha inoltre la funzione update, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R: nel momento in cui i valori non sono accettabili la funzione 
+La classe Population è all'interno della cartella model ed è caratterizzata dalle tre variabili S, I e R. 
+Ha al suo interno un metodo per verificare se i valori sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
+Contiene al suo interno funzioni (i getters) per ottenere i valori e il numero totale della popolazione.
+Ha inoltre la funzione update, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione ritorna falso e non vengono aggiornati i valori.
 
 #### Pandemic
 
-La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili.
+La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters.
 Pandemic ha una funzione membro chiamata calculateNextStage, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule sopra descritte.
-Poiché ques'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento tramite la funzione round. Dopo l'utilizzo di questa, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene levato dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
+Poiché ques'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Inanzitutto è stata utilizzata la funzione Round da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati di un unità. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene levato dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
+
+#### Simulation
+
+Simulation è una classe composta dalla classe population, dalla classe pandemic e dallo stadio della sviluppo di quest’ultima. 
+Simulation si occupa dunque di legare population e pandemic in modo tale da simulare lo sviluppo della pandemia. 
+Contiene al suo interno la funzione advanceStage di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui affinché il valore attuale dello stage non raggiunte quello richiesto dall’utente calcola lo stadio successivo della classe pandemic. 
+La classe simulation contiene inoltre dei getters:
+- getPopulation, per ottenere i valori di S, I e R;
+- getCount, per ottenere lo stadio attuale della pandemia.
+A differenza degli altri file questa non è associato ad un rispettivo file .hpp perché..
+
+#### Console Interface
+
+Il file di console interface si occupa dell'interfaccia grafica. Contiene quindi le funzioni per l'input dei valori chiesti all'utente e di output. Di quest'ultimo si indica la rappresentazione in forma tabellare dei valori S, I e R ad ogni stadio e la rappresentazione grafica in SFML.
 
 ## Test
 
