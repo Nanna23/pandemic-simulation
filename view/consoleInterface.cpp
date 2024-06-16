@@ -89,9 +89,9 @@ class ConsoleInterface {
     } while (simulation->advanceStage());
 
     if (answer == "y" || answer == "yes" || answer == "Y" || answer == "Yes") {
-      const float window_width{1000};
-      const float window_height{800};
-      const float padding{50.f};
+      unsigned int window_width{1000};
+      unsigned int window_height{800};
+      unsigned int padding{50};
       sf::RenderWindow window(sf::VideoMode(window_width, window_height),
                               "Pandemic Simulation");
 
@@ -152,13 +152,13 @@ class ConsoleInterface {
       xlabel.setFont(font);
       xlabel.setCharacterSize(padding / 2);
       xlabel.setFillColor(sf::Color::Black);
-      xlabel.setPosition(window_width / 2, window_height - padding);
+      xlabel.setPosition(window_width / 2.f, window_height - padding);
       window.draw(xlabel);
       ylabel.setString("People");
       ylabel.setFont(font);
       ylabel.setCharacterSize(padding / 2);
       ylabel.setFillColor(sf::Color::Black);
-      ylabel.setPosition(padding / 4, window_height / 2);
+      ylabel.setPosition(padding / 4.f, window_height / 2.f);
       ylabel.rotate(270.f);
       window.draw(ylabel);
       // legenda
