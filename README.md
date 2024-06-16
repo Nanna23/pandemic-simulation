@@ -5,6 +5,11 @@
 - [Il modello SIR](#Il-modello-SIR)
 - [Implementazione del modello SIR](#Implementazione-del-modello-SIR)
 - [Progettazione](#Progettazione)
+    - [Population](#Population)
+    - [Pandemic](#Pandemic)
+    - [Simulation](#Simulation)
+    - [ConsoleInterface](#ConsoleInterface)
+    - [Main](#Main)
 - [Test](#Test)
 - [Istruzioni per l'uso](#Istruzioni-per-luso)
     - [g++](#g)
@@ -41,7 +46,7 @@ R_i &= R_{i-1} + \gamma I_{i-1}
 
 I parametri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma questi vengono considerati costanti.
 Nel progetto come unità di tempo viene utilizzato lo stadio (stage) della simulazione, in cui 1 stadio corrisponde a $\Delta T = 1$.
-Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). Questo passatto viene svolto da una funzione della classe Pandemic.
+Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). Questo passaggio viene svolto da una funzione della classe Pandemic.
 
 ## Progettazione
 
@@ -51,36 +56,39 @@ Il programma è stato progettato utilizzando il modello MVC (Model-View-Controll
 - View (vista): si occupa della presentazione all'utente, mostrando i dati in maniera comprensibile;
 - Controller (controllore): è la parte che funge da intermediario tra il model e la view.
 
-Inoltre è presente il file *main.cpp* che è il punto di entrata del programma e si occupa di avviare la view.
+Inoltre è presente il file *main.cpp* che è il punto di entrata del programma.
 Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
 Per rendere più semplice la compilazione del programma si è scelto di usare CMake, quindi i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico ma è tutto presente al suo interno.
 
 #### Population
 
-La classe Population è all'interno della cartella model ed è caratterizzata dalle tre variabili S, I e R. 
-Ha al suo interno un metodo per verificare se i valori sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
-Contiene al suo interno funzioni (i getters) per ottenere i valori e il numero totale della popolazione.
-Ha inoltre la funzione update, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione ritorna falso e non vengono aggiornati i valori.
+La classe Population è caratterizzata dalle tre variabili S, I e R e ha al suo interno un metodo per verificare se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
+Contiene al suo interno funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN`.
+Ha inoltre la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
 
 #### Pandemic
 
-La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters.
-Pandemic ha una funzione membro chiamata calculateNextStage, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule sopra descritte.
-Poiché ques'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Inanzitutto è stata utilizzata la funzione Round da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati di un unità. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene levato dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
+La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters: `getBeta` e `getGamma`.
+Pandemic ha una funzione membro chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule sopra descritte.
+Poiché quest'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Innanzitutto è stata utilizzata la funzione `std::round` da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene sottratto dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
 
 #### Simulation
 
-Simulation è una classe composta dalla classe population, dalla classe pandemic e dallo stadio della sviluppo di quest’ultima. 
-Simulation si occupa dunque di legare population e pandemic in modo tale da simulare lo sviluppo della pandemia. 
-Contiene al suo interno la funzione advanceStage di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui affinché il valore attuale dello stage non raggiunte quello richiesto dall’utente calcola lo stadio successivo della classe pandemic. 
+Simulation ha tre attributi: uno di tipo `model::Population`, uno di tipo `model::Pandemic` e uno di tipo numerico che indica lo stadio di sviluppo di quest’ultima. 
+Simulation si occupa dunque di legare Population e Pandemic in modo tale da simulare lo sviluppo della pandemia. 
+Contiene al suo interno la funzione `advanceStage` di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui affinché il valore attuale dello stage non raggiunte quello richiesto dall’utente calcola lo stadio successivo della classe pandemic. 
 La classe simulation contiene inoltre dei getters:
-- getPopulation, per ottenere i valori di S, I e R;
-- getCount, per ottenere lo stadio attuale della pandemia.
+- `getPopulation`, per ottenere i valori di S, I e R;
+- `getCount`, per ottenere lo stadio attuale della pandemia.
 A differenza degli altri file questa non è associato ad un rispettivo file .hpp perché..
 
-#### Console Interface
+#### ConsoleInterface
 
 Il file di console interface si occupa dell'interfaccia grafica. Contiene quindi le funzioni per l'input dei valori chiesti all'utente e di output. Di quest'ultimo si indica la rappresentazione in forma tabellare dei valori S, I e R ad ogni stadio e la rappresentazione grafica in SFML.
+
+#### Main
+
+è il punto di entrata del programma e si occupa di avviare la view
 
 ## Test
 
@@ -93,20 +101,21 @@ I test sono stati scritti utilizzando il framework doctest. Questi riguardano le
 
 È necessario che nella cartella dalla quale viene eseguito il programma sia presente il file *arial.ttf*, contenente il font usato dalla libreria SFML.
 
-### g++
+#### g++
 
 Per compilare:
 
 ```
-$ g++ -std=c++2a -Wall -Wextra -fsanitize=address,undefined model/pandemic.cpp model/person.cpp model/population.cpp model/position.cpp view/consoleInterface.cpp controller/simulation.cpp main.cpp -o app -lsfml-window -lsfml-system -lsfml-graphics
+$ g++ -std=c++2a -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wimplicit-fallthrough -Wextra-semi -Wold-style-cast -D_GLIBCXX_ASSERTIONS -fsanitize=address,undefined model/pandemic.cpp model/population.cpp view/consoleInterface.cpp controller/simulation.cpp main.cpp -o app -lsfml-window -lsfml-system -lsfml-graphics
 ```
+Specifico che questo comando da un Warning riguardante la libreria SFML.
 Per eseguire:
 
 ```
 $ ./app
 ```
 
-### CMake
+#### CMake
 
 Per compilare:
 
