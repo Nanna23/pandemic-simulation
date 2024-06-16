@@ -20,9 +20,9 @@ bool model::Pandemic::calculateNextStage(Population& population) {
   const int R = population.getR();
   const int N = population.getN();
 
-  int newS = std::round(S - beta * (S * I) / N);
-  int newI = std::round(I + beta * (S * I) / N - gamma * I);
-  int newR = std::round(R + gamma * I);
+  int newS = int(std::round(S - beta * (S * I) / N));
+  int newI = int(std::round(I + beta * (S * I) / N - gamma * I));
+  int newR = int(std::round(R + gamma * I));
 
   // per garantire S+I+R = N
   const int roundingError = N - (newS + newI + newR);
