@@ -16,14 +16,14 @@ int model::Population::getS() { return this->S; }
 int model::Population::getI() { return this->I; }
 int model::Population::getR() { return this->R; }
 int model::Population::getN() { return this->N; }
-bool model::Population::update(int S, int I, int R) {
-  if (S < 0 || I < 0 || R < 0 || N <= 0 || S + I + R != this->getN()) {
+bool model::Population::update(int newS, int newI, int newR) {
+  if (newS < 0 || newI < 0 || newR < 0 || newS + newI + newR != this->getN()) {
     return false;
   }
 
-  this->S = S;
-  this->I = I;
-  this->R = R;
+  this->S = newS;
+  this->I = newI;
+  this->R = newR;
   return true;
 }
 }  // namespace model
