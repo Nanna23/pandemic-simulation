@@ -181,3 +181,4 @@ Do you want a graphic representation of the simulation? [y/n] y
 ## Conclusione
 
 Eseguendo il programma con valori differenti si può notare facilmente l'influenza dei due parametri $\beta$ e $\gamma$. Se il valore di $\beta$ è elevato, si nota che l'epidemia è molto più contagiosa. Se il valore di $\gamma$ è alto, si può osservare una guarigione più veloce. Studiare questi parametri è fondamentale per capire l'influenza che potrebbero avere il lockdown o la vaccinazione: il primo si può simulare diminuendo il parametro $\beta$, il secondo diminuendo invece entrambi i parametri.
+Continuare a raffinare il modello SIR e adattarlo alle condizioni specifiche delle malattie future potrebbe migliorare ulteriormente la nostra capacità di gestire e mitigare le epidemie.
