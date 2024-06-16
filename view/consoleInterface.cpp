@@ -114,7 +114,7 @@ class ConsoleInterface {
       std::vector<sf::Vertex> line_graph_s;
       std::vector<sf::Vertex> line_graph_i;
       std::vector<sf::Vertex> line_graph_r;
-      for (int i = 0; i <= t; i++) {
+      for (unsigned int i = 0; i <= u_int(t); i++) {
         line_graph_s.emplace_back(
             sf::Vector2f(padding + i * xpadding,
                          window_height - padding -
