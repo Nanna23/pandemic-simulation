@@ -3,13 +3,14 @@
 
 - [Introduzione](#Introduzione)
 - [Il modello SIR](#Il-modello-SIR)
+- [Modifiche Implementate rispetto alla Consegna Precedente](#Modifiche-Implementate-rispetto-alla-Consegna-Precedente)
 - [Implementazione del modello SIR](#Implementazione-del-modello-SIR)
 - [Progettazione](#Progettazione)
-    - [Population](#Population)
-    - [Pandemic](#Pandemic)
-    - [Simulation](#Simulation)
-    - [ConsoleInterface](#ConsoleInterface)
-    - [Main](#Main)
+    - [population](#population)
+    - [pandemic](#pandemic)
+    - [simulation](#simulation)
+    - [consoleInterface](#consoleInterface)
+    - [main](#main)
 - [Test](#Test)
 - [Istruzioni per l'uso](#Istruzioni-per-luso)
     - [g++](#g)
@@ -33,6 +34,15 @@ $$\begin{align*}
 \end{align*}$$
 
 Osservando le equazioni si può notare che le persone suscettibili possono solo diminuire poiché diventano infette. A loro volta, le persone rimosse possono solo aumentare in quanto il loro stato è quello finale. Gli infetti sono quindi uno stato transitivo tra quello di suscettibile e quello di rimosso.
+
+## Modifiche Implementate rispetto alla Consegna Precedente
+
+Segnalo in seugito le modifiche effettuate al progetto:
+
+- sono stati eliminati i file (e i rispettivi header files) *people.cpp* e *position.cpp*, inizialmente  creati per poter implementare il modello per automa cellulare (ciò non è stato fatto per questioni di tempo);
+- sono stati rafforzati i test;
+- la relazione è stata scritta in maniera più approfondita;
+- sono state fatte correzioni generali al codice.
 
 ## Implementazione del modello SIR
 
@@ -60,42 +70,44 @@ Inoltre è presente il file *main.cpp* che è il punto di entrata del programma.
 Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
 Per rendere più semplice la compilazione del programma si è scelto di usare CMake, quindi i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico ma è tutto presente al suo interno.
 
-#### Population
+#### population
 
-La classe Population è caratterizzata dalle tre variabili S, I e R e ha al suo interno un metodo per verificare se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
-Contiene al suo interno funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN`.
-Ha inoltre la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
+La classe `population` è caratterizzata dalle tre variabili S, I e R e ha al suo interno un metodo per verificare se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
+Include, inoltre, funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN` (dove $N = S + I + R$).
+Si trova anche la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
 
-#### Pandemic
+#### pandemic
 
-La classe pandemic è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters: `getBeta` e `getGamma`.
-Pandemic ha una funzione membro chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule sopra descritte.
+La classe `pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters: `getBeta` e `getGamma`.
+Pandemic ha una funzione membro chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule descritte [sopra](#Implementazione-del-modello-SIR).
 Poiché quest'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Innanzitutto è stata utilizzata la funzione `std::round` da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene sottratto dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
 
-#### Simulation
+#### simulation
 
 Simulation ha tre attributi: uno di tipo `model::Population`, uno di tipo `model::Pandemic` e uno di tipo numerico che indica lo stadio di sviluppo di quest’ultima. 
-Simulation si occupa dunque di legare Population e Pandemic in modo tale da simulare lo sviluppo della pandemia. 
-Contiene al suo interno la funzione `advanceStage` di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui affinché il valore attuale dello stage non raggiunte quello richiesto dall’utente calcola lo stadio successivo della classe pandemic. 
+Simulation si occupa dunque di legare `population` e `pandemic` in modo tale da simulare lo sviluppo della pandemia. 
+Comprende la funzione `advanceStage` di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui, affinché il valore attuale dello stage non raggiunte quello finale, calcola lo stadio successivo della classe pandemic. 
 La classe simulation contiene inoltre dei getters:
 - `getPopulation`, per ottenere i valori di S, I e R;
 - `getCount`, per ottenere lo stadio attuale della pandemia.
-A differenza degli altri file questa non è associato ad un rispettivo file .hpp perché..
 
-#### ConsoleInterface
+#### consoleInterface
 
-Il file di console interface si occupa dell'interfaccia grafica. Contiene quindi le funzioni per l'input dei valori chiesti all'utente e di output. Di quest'ultimo si indica la rappresentazione in forma tabellare dei valori S, I e R ad ogni stadio e la rappresentazione grafica in SFML.
+Il file di console interface si occupa dell'interfaccia grafica. Contiene quindi le funzioni per l'input e di output. Di quest'ultimo si indica la rappresentazione in forma tabellare dei valori S, I e R ad ogni stadio e la rappresentazione grafica in SFML.
+Contiene la funzione `setUpAndStart` che si occupa si prendere i valori di S, I, R, $\beta$ e $\gamma$. Se presente un file (non vuoto)  *simulation.conf*, il programma chiede se l'utente vuole utilizzarlo. In caso di risposta affermativa prende i valori se il file è correttamente formattato. In caso contrario prosegue chiedendo ognuno dei valori, che l'utente dovrà inserire manualmente.
+Dopo l'ottenimento dei dati, si passa alla funzione `start`che fa partire la simulazione e chiede all'utente se vuole una rappresentazione grafica. La funzione, tramite un ciclo do-while, stampa i valori di S, I e R a ogni stadio. Se è stata scelta l'opzione del grafico, apparirà una finestra nuova contenente questo.
 
-#### Main
+#### main
 
-è il punto di entrata del programma e si occupa di avviare la view
+La funzione `main` è il punto di entrata del programma e si occupa di avviare la view.
+La sua intera funzionalità è racchiusa all'interno di un if-else: una volta eseguito il programma, è possibile inserire direttamente i valori di S, I, R, $\beta$ e $\gamma$ in riga; altrimenti il `main` passa alla funzione `consoleInterface.setUpAndStart`.
 
 ## Test
 
 I test sono stati scritti utilizzando il framework doctest. Questi riguardano le classi che svolgono funzioni non elementari ma fondamentali per il buon funzionamento del programma:
 - la classe Population, della quale se ne verifica il corretto aggiornamento nel caso di valori corretti e scorretti;
 - la classe Pandemic, della quale se ne verifica la corretta gestione di una popolazione vuota ed evoluzione di una popolazione allo stage seguente;
-- la classe Simulation, della quale se ne verifica il corretto conteggio degli stage.
+- la classe Simulation, della quale se ne verifica il corretto conteggio degli stage e la gestione nel caso in cui l'utente avvesse chiesto un numero di stages negativo.
   
 ## Istruzioni per l'uso
 
@@ -108,7 +120,8 @@ Per compilare:
 ```
 $ g++ -std=c++2a -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wimplicit-fallthrough -Wextra-semi -Wold-style-cast -D_GLIBCXX_ASSERTIONS -fsanitize=address,undefined model/pandemic.cpp model/population.cpp view/consoleInterface.cpp controller/simulation.cpp main.cpp -o app -lsfml-window -lsfml-system -lsfml-graphics
 ```
-Specifico che questo comando da un Warning riguardante la libreria SFML.
+Si segnala che questo comando dà un avviso (Warning) riguardante la libreria SFML.
+
 Per eseguire:
 
 ```
