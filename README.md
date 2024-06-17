@@ -72,7 +72,7 @@ Per rendere più semplice la compilazione del programma si è scelto di usare CM
 
 #### Population
 
-La classe `Population` è caratterizzata dalle tre variabili S, I e R e nel metodo costruttore si verifica se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario il programma da errore.
+La classe `Population` è caratterizzata dalle tre variabili S, I e R e nel metodo costruttore si verifica se queste sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario il programma da errore.
 Include, inoltre, funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN` (dove $N = S + I + R$).
 Si trova anche la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
 
@@ -95,7 +95,7 @@ La classe simulation contiene inoltre dei getters:
 
 La classe `ConsoleInterface` si occupa dell'interfaccia grafica.
 Contiene la funzione `setUpAndStart` che si occupa si leggere i valori di S, I, R, $\beta$ e $\gamma$. Se è presente un file (non vuoto)  *simulation.conf*, il programma chiede se l'utente vuole utilizzarlo. In caso di risposta affermativa legge i valori se il file è correttamente formattato, ovvero i valori devono essere scritti ordinati, in riga separati e da uno spazio. In caso contrario prosegue chiedendo ognuno dei valori, che l'utente dovrà inserire manualmente.
-Dopo l'ottenimento dei dati, si passa alla funzione `start`che fa partire la simulazione e chiede all'utente se vuole una rappresentazione grafica. La funzione, tramite un ciclo do-while, stampa i valori di S, I e R a ogni stadio. Se è stata scelta l'opzione del grafico, apparirà una finestra nuova contenente questo.
+Dopo l'ottenimento dei dati, si passa alla funzione `start` che fa partire la simulazione e chiede all'utente se vuole una rappresentazione grafica. La funzione, tramite un ciclo do-while, stampa i valori di S, I e R a ogni stadio. Se è stata scelta l'opzione del grafico, apparirà una finestra nuova contenente questo.
 
 #### main
 
