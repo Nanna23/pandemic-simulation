@@ -6,10 +6,10 @@
 - [Modifiche Implementate rispetto alla Consegna Precedente](#Modifiche-Implementate-rispetto-alla-Consegna-Precedente)
 - [Implementazione del modello SIR](#Implementazione-del-modello-SIR)
 - [Progettazione](#Progettazione)
-    - [population](#population)
-    - [pandemic](#pandemic)
-    - [simulation](#simulation)
-    - [consoleInterface](#consoleInterface)
+    - [Population](#Population)
+    - [Pandemic](#Pandemic)
+    - [Simulation](#Simulation)
+    - [ConsoleInterface](#ConsoleInterface)
     - [main](#main)
 - [Test](#Test)
 - [Istruzioni per l'uso](#Istruzioni-per-luso)
@@ -70,19 +70,19 @@ Inoltre è presente il file *main.cpp* che è il punto di entrata del programma.
 Ho utilizzato questo design per mantenere il codice in ordine separandolo in più parti indipendenti tra loro. Questo facilita l'implementazione di nuove funzionalità espandendo le capacità del programma.
 Per rendere più semplice la compilazione del programma si è scelto di usare CMake, quindi i file e le impostazioni necessarie alla compilazione non devono essere riscritte ogni volta nella linea di comando in quanto sono già presenti in *CMakeLists.txt*. Quest'ultimo file facilita la portabilità poiché non è necessario memorizzare alcun comando specifico ma è tutto presente al suo interno.
 
-#### population
+#### Population
 
 La classe `Population` è caratterizzata dalle tre variabili S, I e R e nel metodo costruttore si verifica se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario il programma da errore.
 Include, inoltre, funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN` (dove $N = S + I + R$).
 Si trova anche la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
 
-#### pandemic
+#### Pandemic
 
 La classe `Pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Quest'ultimi possono essere accessi tramite i rispettivi getters: `getBeta` e `getGamma`.
 Pandemic ha un metodo chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule descritte [sopra](#Implementazione-del-modello-SIR).
 Poiché quest'ultime possono produrre numeri decimali è stato necessario implementare un metodo di arrotondamento. Innanzitutto è stata utilizzata la funzione `std::round` da cui, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore si somma la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene sottratto dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
 
-#### simulation
+#### Simulation
 
 `Simulation` ha tre attributi: uno di tipo `model::Population`, uno di tipo `model::Pandemic` e uno di tipo numerico che indica lo stadio di sviluppo di quest’ultima. 
 Simulation si occupa dunque di legare `population` e `pandemic` in modo tale da simulare lo sviluppo della pandemia. 
@@ -91,7 +91,7 @@ La classe simulation contiene inoltre dei getters:
 - `getPopulation`, per ottenere i valori di S, I e R;
 - `getCount`, per ottenere lo stadio attuale della pandemia.
 
-#### consoleInterface
+#### ConsoleInterface
 
 La classe `ConsoleInterface` si occupa dell'interfaccia grafica. Contiene quindi le funzioni per l'input e l'output. Di quest'ultimo si indica la rappresentazione in forma tabellare dei valori S, I e R ad ogni stadio e la rappresentazione grafica in SFML.
 Contiene la funzione `setUpAndStart` che si occupa si prendere i valori di S, I, R, $\beta$ e $\gamma$. Se è presente un file (non vuoto)  *simulation.conf*, il programma chiede se l'utente vuole utilizzarlo. In caso di risposta affermativa prende i valori se il file è correttamente formattato. In caso contrario prosegue chiedendo ognuno dei valori, che l'utente dovrà inserire manualmente.
