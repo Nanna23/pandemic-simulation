@@ -78,7 +78,7 @@ Si trova anche la funzione `update`, di tipo bool, che viene utilizzata per aggi
 
 #### pandemic
 
-La classe `pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Ques'ultimi possono essere accessi tramite trispettivi getters: `getBeta` e `getGamma`.
+La classe `pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Quest'ultimi possono essere accessi tramite trispettivi getters: `getBeta` e `getGamma`.
 Pandemic ha una funzione membro chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule descritte [sopra](#Implementazione-del-modello-SIR).
 Poiché quest'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Innanzitutto è stata utilizzata la funzione `std::round` da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene sottratto dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
 
