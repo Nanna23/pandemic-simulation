@@ -56,7 +56,7 @@ R_i &= R_{i-1} + \gamma I_{i-1}
 
 I parametri $\beta$ e $\gamma$ nella realtà possono variare in base a vaccinazioni e quarantene, tuttavia nel programma questi vengono considerati costanti.
 Nel progetto come unità di tempo viene utilizzato lo stadio (stage) della simulazione, in cui 1 stadio corrisponde a $\Delta T = 1$.
-Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). Questo passaggio viene svolto da un metodo della classe Pandemic.
+Essendo i risultati delle equazioni numeri decimali, questi vanno arrotondati a valori interi (e.g. non è possibile avere 4.5 persone infette). 
 
 ## Progettazione
 
@@ -72,13 +72,13 @@ Per rendere più semplice la compilazione del programma si è scelto di usare CM
 
 #### population
 
-La classe `population` è caratterizzata dalle tre variabili S, I e R e ha al suo interno un metodo per verificare se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario i valori non vengono utlizzati.
+La classe `Population` è caratterizzata dalle tre variabili S, I e R e nel metodo costruttore si verifica se questi sono accettabili: ovvero valori interi non negativi, e il totale delle persone non può mai essere uguale a 0. In caso contrario il programma da errore.
 Include, inoltre, funzioni (i getters) per ottenere i valori e il numero totale della popolazione: `getS`, `getI`, `getR` e `getN` (dove $N = S + I + R$).
 Si trova anche la funzione `update`, di tipo bool, che viene utilizzata per aggiornare i valori di S, I e R; se questi non sono accetabili la funzione restituisce falso e non vengono aggiornati i valori.
 
 #### pandemic
 
-La classe `pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Quest'ultimi possono essere accessi tramite i rispettivi getters: `getBeta` e `getGamma`.
+La classe `Pandemic` è composta dai due paramentri $\beta$ e $\gamma$, anche in questo caso viene controllato se i valori sono accettabili. Quest'ultimi possono essere accessi tramite i rispettivi getters: `getBeta` e `getGamma`.
 Pandemic ha una funzione membro chiamata `calculateNextStage`, di tipo bool. Questa si occupa di calcolare i valori di S, I e R alla stadio successivo, utilizzando le formule descritte [sopra](#Implementazione-del-modello-SIR).
 Poiché quest'ultime possono generare numeri decimali è stato necessario implementare un metodo di arrotondamento. Innanzitutto è stata utilizzata la funzione `std::round` da cui, dopo l'utilizzo, può verificarsi una discrepanza tra la popolazione totale, N, e la somma dei nuovi valori arrotondati. Per correggere questo errore nel caso in cui N sia inferiore andiamo a sommare la differenza al valore più alto tra S, I e R; nel caso contrario, questo viene sottratto dal più piccolo. Il calcolo viene svolto in questo modo per minimizzare l'impatto dell'aggiustamento.
 
@@ -86,7 +86,7 @@ Poiché quest'ultime possono generare numeri decimali è stato necessario implem
 
 Simulation ha tre attributi: uno di tipo `model::Population`, uno di tipo `model::Pandemic` e uno di tipo numerico che indica lo stadio di sviluppo di quest’ultima. 
 Simulation si occupa dunque di legare `population` e `pandemic` in modo tale da simulare lo sviluppo della pandemia. 
-Comprende la funzione `advanceStage` di tipo bool, che contiene al suo interno un ciclo di tipo if, in cui, affinché il valore attuale dello stage non raggiunte quello finale, calcola lo stadio successivo della classe pandemic. 
+Comprende la funzione `advanceStage` di tipo bool, che contiene al suo interno un costrutto di tipo if, in cui, affinché il valore attuale dello stage non raggiunte quello finale, calcola lo stadio successivo della classe pandemic. 
 La classe simulation contiene inoltre dei getters:
 - `getPopulation`, per ottenere i valori di S, I e R;
 - `getCount`, per ottenere lo stadio attuale della pandemia.
@@ -100,7 +100,7 @@ Dopo l'ottenimento dei dati, si passa alla funzione `start`che fa partire la sim
 #### main
 
 La funzione `main` è il punto di entrata del programma e si occupa di avviare la view.
-La sua intera funzionalità è racchiusa all'interno di un if-else: una volta eseguito il programma, è possibile inserire direttamente i valori di S, I, R, $\beta$ e $\gamma$ in riga; altrimenti il `main` passa alla funzione `consoleInterface.setUpAndStart`.
+La sua intera funzionalità è racchiusa all'interno di un if-else: è possibile inserire in riga i valori di S, I, R, $\beta$ e $\gamma$ nel momento in cui si avvia il programma; altrimenti il `main` passa alla funzione `consoleInterface.setUpAndStart`.
 
 ## Test
 
