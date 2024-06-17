@@ -37,9 +37,9 @@ Osservando le equazioni si può notare che le persone suscettibili possono solo 
 
 ## Modifiche Implementate rispetto alla Consegna Precedente
 
-Segnalo in seugito le modifiche effettuate al progetto:
+Segnalo in seguito le modifiche effettuate al progetto:
 
-- sono stati eliminati i file (e i rispettivi header files) *people.cpp* e *position.cpp*, inizialmente  creati per poter implementare il modello per automa cellulare (ciò non è stato fatto per questioni di tempo);
+- sono stati eliminati i file (e i rispettivi header file) *people.cpp* e *position.cpp*, inizialmente  creati per poter implementare il modello per automa cellulare (ciò non è stato fatto per questioni di tempo);
 - sono stati rafforzati i test;
 - la relazione è stata scritta in maniera più approfondita;
 - sono state fatte correzioni generali al codice.
