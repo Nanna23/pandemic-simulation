@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-#include "../controller/simulation.cpp"
+#include "../controller/simulation.hpp"
 
 #include "doctest.h"
 
